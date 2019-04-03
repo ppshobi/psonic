@@ -27,6 +27,7 @@ class SonicResponse implements ResponseInterface
 
         if($this->pieces['status'] === 'RESULT') {
             $this->pieces['count'] = (int) $this->pieces[1];
+            unset($this->pieces[1]);
         }
     }
 
