@@ -7,20 +7,32 @@ use Psonic\Contracts\Response as ResponseInterface;
 class SonicResponse implements ResponseInterface 
 {
     private $message;
-
+    private $pieces;
     public function __construct($message)
     {
         $this->message = (string) $message;
+        $this->parse();
+    }
+
+    private function parse()
+    {
+        $this->pieces = explode(" ", $this->message);
+
+        if(preg_match_all("/buffer\((\d+)\)/", $this->message, $matches)) {
+            $this->pieces['bufferSize'] = $matches[1][0];
+        }
     }
 
     public function __toString()
     {
-        return $this->message;
+        return implode(" ", $this->pieces);
     }
 
-    public static function fromResource()
+    public function get($key)
     {
-        
+        if(isset($this->pieces[$key])){
+            return $this->pieces[$key];
+        }
     }
 }
  

@@ -34,11 +34,9 @@ class Client implements ClientInterface
 
         fwrite($this->resource, $command);
         $message = stream_get_line($this->resource, 2048, "\r\n");
-//        $message .= stream_get_line($this->resource, 4096, "\r\n");
+
         return new SonicResponse($message);
     }
-
-
 
     public function connect()
     {
@@ -46,7 +44,9 @@ class Client implements ClientInterface
             throw new ConnectionException();
         }
 
-        return $this;
+        $message = stream_get_line($this->resource, 2048, "\r\n");
+        return new SonicResponse($message);
+//        return $this;
     }
 
     public function disconnect()

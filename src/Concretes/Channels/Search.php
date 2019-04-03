@@ -22,9 +22,11 @@ class Search extends Channel
 
     public function connect()
     {
-        parent::connect();
-        $this->send(new StartSearchChannelCommand);
-        $this->client->clearBuffer();
+        $response1 = parent::connect();
+        $response = $this->send(new StartSearchChannelCommand);
+        if($bufferSize = $response->get('bufferSize')){
+            $this->bufferSize = $bufferSize;
+        }
         return $this;
     }
 }

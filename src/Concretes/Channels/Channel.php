@@ -15,6 +15,8 @@ abstract class Channel implements ChannelInterface
      */
     protected $client;
 
+    protected $bufferSize;
+
     public function __construct(Client $client)
     {
         $this->client = $client;
@@ -22,7 +24,7 @@ abstract class Channel implements ChannelInterface
 
     public function connect()
     {
-        $this->client->connect();
+        return $this->client->connect();
     }
 
     public function disconnect()
