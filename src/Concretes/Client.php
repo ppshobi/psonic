@@ -34,7 +34,6 @@ class Client implements ClientInterface
 
         fwrite($this->resource, $command);
         $message = stream_get_line($this->resource, 2048, "\r\n");
-
         return new SonicResponse($message);
     }
 

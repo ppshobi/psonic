@@ -25,14 +25,26 @@ class Ingest extends Channel
         parent::connect();
         $response = $this->send(new StartIngestChannelCommand);
         if($buffersize = $response->get('bufferSize')){
-            $this->bufferSize = $buffersize;
+            $this->bufferSize = (int) $buffersize;
         }
         return $this;
     }
 
     public function push(string $collection, string $bucket, string $object, string $text)
     {
-        $command = new PushCommand($collection, $bucket, $object, $text);
-        return $this->send($command);
+        $chunks = $this->splitString($text);
+
+        foreach ($chunks as $chunk) {
+            $message = $this->send(new PushCommand($collection, $bucket, $object, $chunk));
+            if($message == false || $message == "") {
+                throw new \InvalidArgumentException();
+            }
+        }
+        return $message;
+    }
+
+    private function splitString(string  $text): array
+    {
+        return  str_split($text, ($this->bufferSize - 30));
     }
 }

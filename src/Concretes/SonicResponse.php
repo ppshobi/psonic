@@ -21,6 +21,8 @@ class SonicResponse implements ResponseInterface
         if(preg_match_all("/buffer\((\d+)\)/", $this->message, $matches)) {
             $this->pieces['bufferSize'] = $matches[1][0];
         }
+
+        $this->pieces[0] = ['status' => $this->pieces[0]];
     }
 
     public function __toString()
@@ -33,6 +35,11 @@ class SonicResponse implements ResponseInterface
         if(isset($this->pieces[$key])){
             return $this->pieces[$key];
         }
+    }
+
+    public function getStatus()
+    {
+        $this->get('status');
     }
 }
  
