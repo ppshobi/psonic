@@ -6,6 +6,7 @@ use Psonic\Concretes\Commands\Misc\PingCommand;
 use Psonic\Concretes\Commands\Misc\QuitChannelCommand;
 use Psonic\Contracts\Channel as ChannelInterface;
 use Psonic\Contracts\Client;
+use Psonic\Contracts\Command;
 use Psonic\Contracts\Response;
 
 abstract class Channel implements ChannelInterface
@@ -38,8 +39,13 @@ abstract class Channel implements ChannelInterface
         return $this->client->send(new PingCommand);
     }
 
-    public function read()
+    public function read(): Response
     {
         return $this->client->read();
+    }
+
+    public function send(Command $command): Response
+    {
+        return $this->client->send($command);
     }
 }

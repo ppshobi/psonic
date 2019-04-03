@@ -17,11 +17,6 @@ class Control extends Channel
         parent::__construct($client);
     }
 
-    public function send(Command $command): Response
-    {
-        return $this->client->send($command);
-    }
-
     public function connect()
     {
         $response1 = parent::connect();
