@@ -33,6 +33,11 @@ class Client implements ClientInterface
         }
 
         fwrite($this->resource, $command);
+        return $this->read();
+    }
+
+    public function read()
+    {
         $message = stream_get_line($this->resource, 2048, "\r\n");
         return new SonicResponse($message);
     }

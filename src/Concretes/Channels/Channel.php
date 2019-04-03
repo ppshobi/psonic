@@ -37,4 +37,9 @@ abstract class Channel implements ChannelInterface
     {
         return $this->client->send(new PingCommand);
     }
+
+    public function read()
+    {
+        return $this->client->read();
+    }
 }

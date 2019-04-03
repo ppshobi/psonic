@@ -3,10 +3,12 @@
 namespace Psonic\Concretes\Channels;
 
 
+use Psonic\Concretes\Commands\Search\QueryCommand;
 use Psonic\Concretes\Commands\Search\StartSearchChannelCommand;
 use Psonic\Contracts\Client;
 use Psonic\Contracts\Command;
 use Psonic\Contracts\Response;
+use Psonic\Exceptions\CommandFailedException;
 
 class Search extends Channel
 {
@@ -28,5 +30,22 @@ class Search extends Channel
             $this->bufferSize = $bufferSize;
         }
         return $this;
+    }
+
+    public function query($collection, $bucket, $terms): array
+    {
+        $response = $this->send(new QueryCommand($collection, $bucket, $terms));
+
+        if(! $response->getStatus() == 'PENDING') {
+            throw new CommandFailedException;
+        }
+
+        $results = $this->read();
+
+        if(! $results->getStatus() == 'EVENT') {
+            throw new CommandFailedException;
+        }
+
+        return $results->getResults();
     }
 }

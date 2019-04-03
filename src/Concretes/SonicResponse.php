@@ -8,6 +8,7 @@ class SonicResponse implements ResponseInterface
 {
     private $message;
     private $pieces;
+    private $results;
     public function __construct($message)
     {
         $this->message = (string) $message;
@@ -29,8 +30,17 @@ class SonicResponse implements ResponseInterface
             $this->pieces['count'] = (int) $this->pieces[1];
             unset($this->pieces[1]);
         }
+
+        if($this->pieces['status'] === 'EVENT') {
+            $this->pieces['query_key'] = $this->pieces[2];
+            $this->results = array_slice($this->pieces, 2, count($this->pieces)-4);
+        }
     }
 
+    public function getResults()
+    {
+        return $this->results;
+    }
     public function __toString()
     {
         return implode(" ", $this->pieces);
