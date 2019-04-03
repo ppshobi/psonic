@@ -22,7 +22,12 @@ class SonicResponse implements ResponseInterface
             $this->pieces['bufferSize'] = $matches[1][0];
         }
 
-        $this->pieces[0] = ['status' => $this->pieces[0]];
+        $this->pieces['status'] = $this->pieces[0];
+        unset($this->pieces[0]);
+
+        if($this->pieces['status'] === 'RESULT') {
+            $this->pieces['count'] = (int) $this->pieces[1];
+        }
     }
 
     public function __toString()

@@ -3,6 +3,7 @@
 namespace Psonic\Concretes\Channels;
 
 use Psonic\Concretes\Commands\Command;
+use Psonic\Concretes\Commands\Ingest\CountCommand;
 use Psonic\Concretes\Commands\Ingest\PushCommand;
 use Psonic\Concretes\Commands\Ingest\StartIngestChannelCommand;
 use Psonic\Contracts\Client;
@@ -41,6 +42,13 @@ class Ingest extends Channel
             }
         }
         return $message;
+    }
+
+    public function count($collection, $bucket = null, $object = null)
+    {
+        $message = $this->send(new CountCommand($collection, $bucket, $object));
+
+        return $message->get('count');
     }
 
     private function splitString(string  $text): array
