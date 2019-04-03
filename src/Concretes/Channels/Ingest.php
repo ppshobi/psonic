@@ -4,6 +4,9 @@ namespace Psonic\Concretes\Channels;
 
 use Psonic\Concretes\Commands\Command;
 use Psonic\Concretes\Commands\Ingest\CountCommand;
+use Psonic\Concretes\Commands\Ingest\FlushBucketCommand;
+use Psonic\Concretes\Commands\Ingest\FlushCollectionCommand;
+use Psonic\Concretes\Commands\Ingest\FlushObjectCommand;
 use Psonic\Concretes\Commands\Ingest\PopCommand;
 use Psonic\Concretes\Commands\Ingest\PushCommand;
 use Psonic\Concretes\Commands\Ingest\StartIngestChannelCommand;
@@ -55,7 +58,8 @@ class Ingest extends Channel
                 throw new \InvalidArgumentException();
             }
         }
-        return $message;
+
+        return $message->get('count');
     }
 
     public function count($collection, $bucket = null, $object = null)
@@ -63,6 +67,24 @@ class Ingest extends Channel
         $message = $this->send(new CountCommand($collection, $bucket, $object));
 
         return $message->get('count');
+    }
+
+    public function flushc($collection)
+    {
+        $message = $this->send(new FlushCollectionCommand($collection));
+        return $message->getCount();
+    }
+
+    public function flushb($collection,$bucket)
+    {
+        $message = $this->send(new FlushBucketCommand($collection, $bucket));
+        return $message->getCount();
+    }
+
+    public function flusho($collection, $bucket, $object)
+    {
+        $message = $this->send(new FlushObjectCommand($collection, $bucket, $object));
+        return $message->getCount();
     }
 
     private function splitString(string  $text): array

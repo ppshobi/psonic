@@ -45,7 +45,12 @@ class SonicResponse implements ResponseInterface
 
     public function getStatus()
     {
-        $this->get('status');
+        return $this->get('status');
+    }
+
+    public function getCount()
+    {
+        return $this->get('count') ?? 0;
     }
 }
  
