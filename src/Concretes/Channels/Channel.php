@@ -30,8 +30,9 @@ abstract class Channel implements ChannelInterface
 
     public function disconnect()
     {
-        $this->client->send(new QuitChannelCommand);
-        $this->client->disconnect();
+        $message = $this->client->send(new QuitChannelCommand);
+         $this->client->disconnect();
+        return $message;
     }
 
     public function ping(): Response

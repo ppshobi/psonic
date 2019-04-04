@@ -2,7 +2,6 @@
 
 namespace Psonic\Concretes;
 
-use Psonic\Concretes\Commands\Misc\QuitChannelCommand;
 use Psonic\Contracts\Client as ClientInterface;
 use Psonic\Contracts\Response as ResponseInterface;
 use Psonic\Contracts\Command as CommandInterface;
@@ -47,15 +46,10 @@ class Client implements ClientInterface
         if(! $this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errno, $this->errstr, $this->maxTimeout)) {
             throw new ConnectionException();
         }
-
-        $message = stream_get_line($this->resource, 2048, "\r\n");
-        return new SonicResponse($message);
-//        return $this;
     }
 
     public function disconnect()
     {
-        $this->send(new QuitChannelCommand);
         stream_socket_shutdown($this->resource, STREAM_SHUT_WR);
         $this->resource = null;
     }
@@ -63,5 +57,6 @@ class Client implements ClientInterface
     public function clearBuffer()
     {
         stream_get_line($this->resource, 4096, "\r\n");
+        return true;
     }
 }

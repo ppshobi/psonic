@@ -7,11 +7,11 @@ $control = new \Psonic\Concretes\Channels\Control(new \Psonic\Concretes\Client()
 
 $search->connect();
 
-$ingest->connect();
-
-$control->connect();
-
-echo $control->consolidate();
+//$ingest->connect();
+//
+//$control->connect();
+//
+//echo $control->consolidate();
 //
 //echo $search->ping();
 //echo $search->ping();
@@ -45,6 +45,7 @@ echo $control->consolidate();
 //echo $ingest->flusho("default");
 //echo "\n" . $ingest->ping();
 //
-//$search->disconnect();
+$resp = $search->disconnect();
+echo $resp;
 //$ingest->disconnect();
 
