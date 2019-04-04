@@ -53,7 +53,7 @@ class Ingest extends Channel
 
     public function pop(string $collection, string $bucket, string $object, string $text)
     {
-        $chunks = $this->splitString($text);
+        $chunks = $this->splitString($collection,$bucket, $object, $text);
 
         foreach ($chunks as $chunk) {
             $message = $this->send(new PopCommand($collection, $bucket, $object, $chunk));

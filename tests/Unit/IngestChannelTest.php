@@ -23,9 +23,9 @@ class IngestChannelTest extends TestCase
     public function it_can_push_items_to_the_index()
     {
         $this->ingest->connect();
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "messages:1234","hi Shobi how are you")->getStatus());
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "messages:4567","hi Naveen")->getStatus());
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "messages:7890","hi Jomit")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234","hi Shobi how are you")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "4567","hi Naveen")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "7890","hi Jomit")->getStatus());
     }
 
     /**
@@ -35,6 +35,22 @@ class IngestChannelTest extends TestCase
     public function it_can_push_huge_items_to_the_index()
     {
         $this->ingest->connect();
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "messages:1234",bin2hex(openssl_random_pseudo_bytes(30000)))->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", bin2hex(openssl_random_pseudo_bytes(30000)))->getStatus());
     }
+
+    /**
+     * @test
+     *
+     **/
+    public function it_can_pop_items_from_index()
+    {
+        $this->ingest->connect();
+        echo $this->ingest->flushc($this->collection);
+        $this->assertEquals(0, $this->ingest->count($this->collection, $this->bucket));
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you")->getStatus());
+        $this->assertEquals(1, $this->ingest->pop($this->collection, $this->bucket, "1234", "hi Shobi how are you"));
+        $this->assertEquals(0, $this->ingest->count($this->collection, $this->bucket));
+    }
+
+
 }
