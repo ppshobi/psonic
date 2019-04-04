@@ -35,5 +35,31 @@ class ChannelTest extends TestCase
         $this->assertEquals("STARTED", $this->control->connect()->getStatus());
     }
 
+    /**
+     * @test
+     *
+     **/
+    public function channels_can_send_a_command_and_returns_a_response()
+    {
+        $this->connect_all_channels();
+        $searchResponse = $this->search->send(new PingCommand);
+        $ingestResponse = $this->ingest->send(new PingCommand);
+        $controlResponse = $this->control->send(new PingCommand);
+
+        $this->assertInstanceOf(Response::class, $searchResponse);
+        $this->assertInstanceOf(Response::class, $ingestResponse);
+        $this->assertInstanceOf(Response::class, $controlResponse);
+
+        $this->assertEquals("PONG", $searchResponse);
+        $this->assertEquals("PONG", $ingestResponse);
+        $this->assertEquals("PONG", $controlResponse);
+    }
+
+    private function connect_all_channels()
+    {
+        $this->search->connect();
+        $this->ingest->connect();
+        $this->control->connect();
+    }
 
 }
