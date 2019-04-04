@@ -21,9 +21,8 @@ class Search extends Channel
     public function connect()
     {
         parent::connect();
-        $this->client->clearBuffer();
 
-        $response = $this->send(new StartSearchChannelCommand);
+        $response = $this->send(new StartSearchChannelCommand());
 
         if($bufferSize = $response->get('bufferSize')){
             $this->bufferSize = (int) $bufferSize;

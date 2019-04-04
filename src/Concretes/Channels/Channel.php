@@ -8,6 +8,7 @@ use Psonic\Contracts\Channel as ChannelInterface;
 use Psonic\Contracts\Client;
 use Psonic\Contracts\Command;
 use Psonic\Contracts\Response;
+use Psonic\Exceptions\ConnectionException;
 
 abstract class Channel implements ChannelInterface
 {
@@ -25,7 +26,12 @@ abstract class Channel implements ChannelInterface
 
     public function connect()
     {
-        return $this->client->connect();
+        $this->client->connect();
+        $response = $this->client->read();
+        if($response->getStatus() == "CONNECTED") {
+            return;
+        }
+        throw new ConnectionException;
     }
 
     public function disconnect()

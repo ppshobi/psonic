@@ -5,9 +5,9 @@ $search = new \Psonic\Concretes\Channels\Search(new \Psonic\Concretes\Client());
 $ingest = new \Psonic\Concretes\Channels\Ingest(new \Psonic\Concretes\Client());
 $control = new \Psonic\Concretes\Channels\Control(new \Psonic\Concretes\Client());
 
-$search->connect();
+//$search->connect();
 
-//$ingest->connect();
+$ingest->connect();
 //
 //$control->connect();
 //
@@ -20,7 +20,7 @@ $search->connect();
 //echo $search->ping();
 
 
-//echo $ingest->push("default", "bucket", "messages:shobi","hi Shobi how are you");
+echo $ingest->push("default", "bucket", "messages:shobi","hi Shobi how are you");
 //echo $ingest->push("default", "bucket", "messages:naveen","hi Naveen");
 //echo $ingest->push("default", "bucket", "messages:jomit","hi Jomit");
 
@@ -44,8 +44,8 @@ $search->connect();
 
 //echo $ingest->flusho("default");
 //echo "\n" . $ingest->ping();
-//
-$resp = $search->disconnect();
-echo $resp;
-//$ingest->disconnect();
+////
+//$resp = $search->disconnect();
+//echo $resp;
+$ingest->disconnect();
 

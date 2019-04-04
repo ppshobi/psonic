@@ -12,6 +12,7 @@ use Psonic\Concretes\Commands\Ingest\PushCommand;
 use Psonic\Concretes\Commands\Ingest\StartIngestChannelCommand;
 use Psonic\Contracts\Client;
 use Psonic\Contracts\Response;
+use InvalidArgumentException;
 
 class Ingest extends Channel
 {
@@ -23,7 +24,6 @@ class Ingest extends Channel
     public function connect()
     {
         parent::connect();
-        $this->client->clearBuffer();
 
         $response = $this->send(new StartIngestChannelCommand);
 
@@ -36,12 +36,15 @@ class Ingest extends Channel
 
     public function push(string $collection, string $bucket, string $object, string $text)
     {
-        $chunks = $this->splitString($text);
 
+        $chunks = $this->splitString($text);
+        if($text== "" || empty($chunks)) {
+            throw new InvalidArgumentException("The parameter \$text is empty");
+        }
         foreach ($chunks as $chunk) {
             $message = $this->send(new PushCommand($collection, $bucket, $object, $chunk));
             if($message == false || $message == "") {
-                throw new \InvalidArgumentException();
+                throw new InvalidArgumentException();
             }
         }
         return $message;
@@ -88,6 +91,6 @@ class Ingest extends Channel
 
     private function splitString(string  $text): array
     {
-        return  str_split($text, ($this->bufferSize - 30));
+        return str_split($text, ($this->bufferSize - 30));
     }
 }
