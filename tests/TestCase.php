@@ -9,7 +9,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     public function __construct()
     {
         parent::__construct();
-        $this->collection = 'collection';
-        $this->bucket     = 'conversations';
+        $this->collection = 'basecollection';
+        $this->bucket     = 'basebucket';
     }
 }
