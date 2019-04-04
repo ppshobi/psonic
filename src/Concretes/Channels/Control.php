@@ -19,12 +19,16 @@ class Control extends Channel
 
     public function connect()
     {
-        $response1 = parent::connect();
-        $response = $this->send(new StartControlChannelCommand());
+        parent::connect();
+        $this->client->clearBuffer();
+
+        $response = $this->send(new StartControlChannelCommand);
+
         if($bufferSize = $response->get('bufferSize')){
             $this->bufferSize = $bufferSize;
         }
-        return $this;
+
+        return $response;
     }
 
     public function trigger($action)

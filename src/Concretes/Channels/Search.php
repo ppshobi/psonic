@@ -20,12 +20,16 @@ class Search extends Channel
 
     public function connect()
     {
-        $response1 = parent::connect();
+        parent::connect();
+        $this->client->clearBuffer();
+
         $response = $this->send(new StartSearchChannelCommand);
+
         if($bufferSize = $response->get('bufferSize')){
-            $this->bufferSize = $bufferSize;
+            $this->bufferSize = (int) $bufferSize;
         }
-        return $this;
+
+        return $response;
     }
 
     public function query($collection, $bucket, $terms): array

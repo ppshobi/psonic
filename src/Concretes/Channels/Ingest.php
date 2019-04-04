@@ -23,11 +23,15 @@ class Ingest extends Channel
     public function connect()
     {
         parent::connect();
+        $this->client->clearBuffer();
+
         $response = $this->send(new StartIngestChannelCommand);
-        if($buffersize = $response->get('bufferSize')){
-            $this->bufferSize = (int) $buffersize;
+
+        if($bufferSize = $response->get('bufferSize')){
+            $this->bufferSize = (int) $bufferSize;
         }
-        return $this;
+
+        return $response;
     }
 
     public function push(string $collection, string $bucket, string $object, string $text)
