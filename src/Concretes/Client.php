@@ -7,7 +7,7 @@ use Psonic\Contracts\Response as ResponseInterface;
 use Psonic\Contracts\Command as CommandInterface;
 use Psonic\Exceptions\ConnectionException;
 
-class Client implements ClientInterface 
+class Client implements ClientInterface
 {
     private $resource;
 
@@ -27,7 +27,7 @@ class Client implements ClientInterface
 
     public function send(CommandInterface $command): ResponseInterface
     {
-        if(! $this->resource ) {
+        if (!$this->resource) {
             throw new ConnectionException();
         }
 
@@ -43,7 +43,7 @@ class Client implements ClientInterface
 
     public function connect()
     {
-        if(! $this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errno, $this->errstr, $this->maxTimeout)) {
+        if (!$this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errno, $this->errstr, $this->maxTimeout)) {
             throw new ConnectionException();
         }
     }

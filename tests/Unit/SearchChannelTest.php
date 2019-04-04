@@ -40,7 +40,7 @@ class SearchChannelTest extends TestCase
 
         $this->control->consolidate();
 
-        $this->assertIsArray($this->search->query($this->collection, $this->bucket, "are"));
+        $this->assertTrue(is_array($this->search->query($this->collection, $this->bucket, "are")));
     }
 
     /**
@@ -61,7 +61,7 @@ class SearchChannelTest extends TestCase
 
         $this->control->consolidate();
         $results = $this->search->suggest($this->collection, $this->bucket, "sho");
-        $this->assertIsArray($results);
+        $this->assertTrue(is_array($results));
         $this->assertContains("shobi", $results);
     }
 
