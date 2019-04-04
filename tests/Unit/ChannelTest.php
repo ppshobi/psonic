@@ -55,6 +55,21 @@ class ChannelTest extends TestCase
         $this->assertEquals("PONG", $controlResponse);
     }
 
+    /**
+     * @test
+     */
+    public function channels_can_disconnect_from_sonic_protocol()
+    {
+        $this->connect_all_channels();
+        $searchResponse = $this->search->disconnect();
+        $ingestResponse = $this->ingest->disconnect();
+        $controlResponse = $this->control->disconnect();
+
+        $this->assertEquals("ENDED", $searchResponse->getStatus());
+        $this->assertEquals("ENDED", $ingestResponse->getStatus());
+        $this->assertEquals("ENDED", $controlResponse->getStatus());
+    }
+
     private function connect_all_channels()
     {
         $this->search->connect();
