@@ -6,9 +6,6 @@ namespace Psonic\Concretes\Channels;
 use Psonic\Concretes\Commands\Control\StartControlChannelCommand;
 use Psonic\Concretes\Commands\Control\TriggerCommand;
 use Psonic\Contracts\Client;
-use Psonic\Contracts\Command;
-use Psonic\Contracts\Response;
-use Psonic\Exceptions\CommandFailedException;
 
 class Control extends Channel
 {
