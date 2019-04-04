@@ -37,7 +37,7 @@ class Ingest extends Channel
     public function push(string $collection, string $bucket, string $object, string $text)
     {
 
-        $chunks = $this->splitString($object, $text);
+        $chunks = $this->splitString($collection,$bucket, $object, $text);
 
         if($text == "" || empty($chunks)) {
             throw new InvalidArgumentException("The parameter \$text is empty");
@@ -58,7 +58,7 @@ class Ingest extends Channel
         foreach ($chunks as $chunk) {
             $message = $this->send(new PopCommand($collection, $bucket, $object, $chunk));
             if($message == false || $message == "") {
-                throw new \InvalidArgumentException();
+                throw new InvalidArgumentException();
             }
         }
 
@@ -90,8 +90,8 @@ class Ingest extends Channel
         return $message->getCount();
     }
 
-    private function splitString(string $key, string  $text): array
+    private function splitString(string $collection, string $bucket, string $key, string  $text): array
     {
-        return str_split($text, ($this->bufferSize - (strlen($key) + 30)));
+        return str_split($text, ($this->bufferSize - (strlen($key . $collection . $bucket) + 9)));
     }
 }
