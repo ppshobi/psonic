@@ -1,4 +1,4 @@
-# Psonic Api doc
+# Psonic API doc
 
 ## Search
 
@@ -11,7 +11,7 @@ $search = new Psonic/Search(new Psonic/Client($host, $port, $timeout));
 echo $search->connect();
 ```
 
-after conencting to Search channel you can call the following methods on it
+after connecting to Search channel you can call the following methods on it
 
 | Methods                                                               |                  Description                   |
 | --------------------------------------------------------------------- | :--------------------------------------------: |
@@ -31,7 +31,7 @@ $ingest = new Psonic/Ingest(new Psonic/Client($host, $port, $timeout));
 echo $ingest->connect();
 ```
 
-after conencting to Ingest channel you can call the following methods on it
+after connecting to Ingest channel you can call the following methods on it
 
 | Methods                                                                      |                                          Description                                           |
 | ---------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------: |
@@ -55,11 +55,11 @@ $control = new Psonic/Control(new Psonic/Client($host, $port, $timeout));
 echo $control->connect();
 ```
 
-after conencting to control channel you can call the following methods on it
+after connecting to control channel you can call the following methods on it
 
-| Methods                      |                                                                                                 Description                                                                                                  |
-| ---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| `->trigger(string $command)` |                                                                                          Trigger a control command                                                                                           |
-| `->consolidate()`            | **Saves the data to disk**, when a certain number of items are pushed to index , depending on the configuration it can happen automatically. But to be on the safe side you could call this command manually |
-| `->ping(): string`           |                                                                                    Pings the server, should return _PONG_                                                                                    |
-| `->disconnect()`             |                                                                                           Disconnects the channel                                                                                            |
+| Methods                      |                                                                                                 Description                                                                                                 |
+| ---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| `->trigger(string $command)` |                                                                                          Trigger a control command                                                                                          |
+| `->consolidate()`            | **Saves the data to disk**, when a certain number of items are pushed to index, depending on the configuration it can happen automatically. But to be on the safe side you could call this command manually |
+| `->ping(): string`           |                                                                                   Pings the server, should return _PONG_                                                                                    |
+| `->disconnect()`             |                                                                                           Disconnects the channel                                                                                           |

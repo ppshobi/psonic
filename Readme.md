@@ -2,12 +2,12 @@
 
 ## Summary
 
-Sonic is a super fast auto suggestion engine built by the team at crisp.ai, a customer engagement platform. its built in Rust and they officially support a javascript client, but if you want to use sonic via php, this is the library that you can look for.
-Completely unit tested, and adheres to modern coding standards, and offers a clean api to interact with sonic.
+Sonic is a super fast auto-suggestion engine built by the team at crisp.ai, a customer engagement platform. it is built in Rust and they officially support a javascript client, but if you want to use sonic via PHP, this is the library that you can look for.
+Completely unit tested, and adheres to modern coding standards, and offers a clean API to interact with sonic.
 
 ## Installation & Usage
 
-you need a running sonic instance (locally or in cloud, the port 1491 should be accessible) php7+ and composer to make this library work. [Read more on installing sonic](https://github.com/valeriansaliou/sonic/blob/master/README.md)
+you need a running sonic instance (locally or in the cloud, the port 1491 should be accessible) php7+ and composer to make this library work. [Read more on installing sonic](https://github.com/valeriansaliou/sonic/blob/master/README.md)
 
 - goto your project directory
 - execute `composer require ppshobi/psonic`
@@ -19,7 +19,7 @@ you need a running sonic instance (locally or in cloud, the port 1491 should be 
 
 ## Usage
 
-once you have psonic in place, you have access to the `Client` and `Channel` classes, Each channel instance requires a seprate new client instance since sonic doesn't allow channel switching withing the same connection. Read more about sonic concepts below
+once you have psonic in place, you have access to the `Client` and `Channel` classes, Each channel instance requires a separate new client instance since sonic doesn't allow channel switching within the same connection. Read more about sonic concepts below
 
 ### Indexing
 
@@ -43,7 +43,7 @@ $control->disconnect();
 
 ### Searching/AutoSuggestions
 
-To search on the index use the following sample code
+To search on the index using the following sample code
 
 ```php
 $search = new Psonoc\Search(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
@@ -63,11 +63,11 @@ $search->disconnect();
 
 ## Basic sonic Concepts
 
-Sonic is an `identifier index` than a `document index`, meaning if the query matches some records it will be giving you the identifier of the matched object, than the object itself. Check Basic Terminology used in sonic below as well. [Read more on sonic repository](https://github.com/valeriansaliou/sonic/blob/master/README.md)
+Sonic is an `identifier index` than a `document index`, meaning if the query matches some records it will be giving you the identifier of the matched object, then the object itself. Check Basic Terminology used in sonic below as well. [Read more on sonic repository](https://github.com/valeriansaliou/sonic/blob/master/README.md)
 
 ### Channels
 
-Sonic doesn't offer an http endpoint as of now, rather it offers a tcp endpoint like redis (They call it RESP protocol), and we call it channel.
+Sonic doesn't offer an HTTP endpoint as of now, rather it offers a TCP endpoint like Redis (They call it RESP protocol), and we call it channel.
 There is 3 kind of channels
 
 - **Ingest** (Typically offers data indexing (index), deindexing (pop), flushing operations)
@@ -76,12 +76,12 @@ There is 3 kind of channels
 
 ### Basic Terminology
 
-Consider you are storing the chats of your customers from an ecommerce website.
+Consider you are storing the chats of your customers from an e-commerce website.
 
 - `collection` - which contains all your messages/products etc...
-- `bucket` - you might need to store messages specific to a user, so that a collection can contain one or more user buckets, so the search can be more specific,
-  or according to your use case you can put all your messages in one bucket itself and name it `default` or `generic` etc..
-- `object` - The object is the key of the actual data that you have in the database, usually the object key will be an identifier/primary_key from the source of truth, like the primary key from the messages table, this will be returned when you query matches some records from the sonic index.
+- `bucket` - you might need to store messages specific to a user so that a collection can contain one or more user buckets, so the search can be more specific,
+  or according to your use case, you can put all your messages in one bucket itself and name it `default` or `generic` etc..
+- `object` - The object is the key of the actual data that you have in the database, usually, the object key will be an identifier/primary_key from the source of truth, as the primary key from the messages table, this will be returned when you query matches some records from the sonic index.
 - `terms` - This is the actual text data you save in the sonic.
   Read more on the sonic documentation
 
