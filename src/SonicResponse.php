@@ -1,6 +1,6 @@
 <?php
 
-namespace Psonic\Concretes;
+namespace Psonic;
 
 use Psonic\Contracts\Response as ResponseInterface;
 

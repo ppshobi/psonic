@@ -1,10 +1,10 @@
 <?php
 
-namespace Psonic\Concretes\Commands\Ingest;
+namespace Psonic\Commands\Search;
 
-use Psonic\Concretes\Commands\Command;
+use Psonic\Commands\Command;
 
-class StartIngestChannelCommand extends Command
+class StartSearchChannelCommand extends Command
 {
     private $command    = 'START';
     private $parameters = [];
@@ -12,7 +12,7 @@ class StartIngestChannelCommand extends Command
     public function __construct($password = 'SecretPassword')
     {
         $this->parameters = [
-            'mode' => 'ingest',
+            'mode' => 'search',
             'password' => $password,
         ];
 

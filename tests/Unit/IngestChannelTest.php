@@ -5,9 +5,9 @@
  */
 namespace Tests\Unit;
 
-use Psonic\Concretes\Channels\Control;
-use Psonic\Concretes\Channels\Ingest;
-use Psonic\Concretes\Client;
+use Psonic\Control;
+use Psonic\Ingest;
+use Psonic\Client;
 use Tests\TestCase;
 
 class IngestChannelTest extends TestCase

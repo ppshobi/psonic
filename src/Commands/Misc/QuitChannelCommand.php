@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Psonic\Concretes\Commands\Misc;
+namespace Psonic\Commands\Misc;
 
-use Psonic\Concretes\Commands\Command;
+use Psonic\Commands\Command;
 
 
 class QuitChannelCommand extends Command

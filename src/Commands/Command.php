@@ -1,6 +1,6 @@
 <?php
 
-namespace Psonic\Concretes\Commands;
+namespace Psonic\Commands;
 
 use Psonic\Contracts\Command as CommandInterface;
 
@@ -20,4 +20,3 @@ abstract class Command implements CommandInterface
         return $this->command . " " . implode($this->parameters, " ") . "\n";
     }
 }
- 

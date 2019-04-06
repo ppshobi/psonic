@@ -1,15 +1,15 @@
 <?php
 
-namespace Psonic\Concretes\Commands\Ingest;
+namespace Psonic\Commands\Ingest;
 
-use Psonic\Concretes\Commands\Command;
+use Psonic\Commands\Command;
 
-class FlushObjectCommand extends Command
+class CountCommand extends Command
 {
-    private $command    = 'FLUSHO';
+    private $command    = 'COUNT';
     private $parameters = [];
 
-    public function __construct(string $collection, string $bucket, string $object)
+    public function __construct(string $collection, string $bucket = null, string $object = null)
     {
         $this->parameters = [
             'collection' => $collection,

@@ -5,14 +5,12 @@
  */
 namespace Tests\Unit;
 
-use Psonic\Concretes\Channels\Control;
-use Psonic\Concretes\Channels\Ingest;
-use Psonic\Concretes\Channels\Search;
-use Psonic\Concretes\Client;
-use Psonic\Concretes\Commands\Misc\PingCommand;
-use Psonic\Contracts\Command;
+use Psonic\Control;
+use Psonic\Ingest;
+use Psonic\Search;
+use Psonic\Client;
+use Psonic\Commands\Misc\PingCommand;
 use Psonic\Contracts\Response;
-use Psonic\Exceptions\ConnectionException;
 use Tests\TestCase;
 
 class ChannelTest extends TestCase

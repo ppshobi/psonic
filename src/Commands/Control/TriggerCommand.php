@@ -1,8 +1,8 @@
 <?php
 
-namespace Psonic\Concretes\Commands\Control;
+namespace Psonic\Commands\Control;
 
-use Psonic\Concretes\Commands\Command;
+use Psonic\Commands\Command;
 
 class TriggerCommand extends Command
 {

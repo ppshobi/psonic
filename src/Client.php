@@ -1,6 +1,6 @@
 <?php
 
-namespace Psonic\Concretes;
+namespace Psonic;
 
 use Psonic\Contracts\Client as ClientInterface;
 use Psonic\Contracts\Response as ResponseInterface;
@@ -15,7 +15,6 @@ class Client implements ClientInterface
     private $errorNo;
     private $errorMessage;
     private $maxTimeout;
-
     public function __construct($host = 'localhost', $port = 1491, $timeout = 30)
     {
         $this->host = $host;

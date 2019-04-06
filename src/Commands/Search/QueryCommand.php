@@ -1,8 +1,8 @@
 <?php
 
-namespace Psonic\Concretes\Commands\Search;
+namespace Psonic\Commands\Search;
 
-use Psonic\Concretes\Commands\Command;
+use Psonic\Commands\Command;
 
 class QueryCommand extends Command
 {

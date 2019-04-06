@@ -1,8 +1,8 @@
 <?php
 
-namespace Psonic\Concretes\Commands\Ingest;
+namespace Psonic\Commands\Ingest;
 
-use Psonic\Concretes\Commands\Command;
+use Psonic\Commands\Command;
 
 class FlushBucketCommand extends Command
 {

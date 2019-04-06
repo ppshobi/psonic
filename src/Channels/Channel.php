@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Psonic\Concretes\Channels;
-use Psonic\Concretes\Commands\Misc\PingCommand;
-use Psonic\Concretes\Commands\Misc\QuitChannelCommand;
+namespace Psonic\Channels;
+use Psonic\Commands\Misc\PingCommand;
+use Psonic\Commands\Misc\QuitChannelCommand;
 use Psonic\Contracts\Channel as ChannelInterface;
 use Psonic\Contracts\Client;
 use Psonic\Contracts\Command;

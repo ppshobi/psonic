@@ -5,8 +5,8 @@
  */
 namespace Tests\Unit;
 
-use Psonic\Concretes\Client;
-use Psonic\Concretes\Commands\Misc\PingCommand;
+use Psonic\Client;
+use Psonic\Commands\Misc\PingCommand;
 use Psonic\Contracts\Command;
 use Psonic\Contracts\Response;
 use Psonic\Exceptions\ConnectionException;

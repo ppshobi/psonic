@@ -1,10 +1,10 @@
 <?php
 
-namespace Psonic\Concretes\Commands\Search;
+namespace Psonic\Commands\Control;
 
-use Psonic\Concretes\Commands\Command;
+use Psonic\Commands\Command;
 
-class StartSearchChannelCommand extends Command
+class StartControlChannelCommand extends Command
 {
     private $command    = 'START';
     private $parameters = [];
@@ -12,7 +12,7 @@ class StartSearchChannelCommand extends Command
     public function __construct($password = 'SecretPassword')
     {
         $this->parameters = [
-            'mode' => 'search',
+            'mode' => 'control',
             'password' => $password,
         ];
 

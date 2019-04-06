@@ -1,10 +1,11 @@
 <?php
 
-namespace Psonic\Concretes\Channels;
+namespace Psonic;
 
 
-use Psonic\Concretes\Commands\Control\StartControlChannelCommand;
-use Psonic\Concretes\Commands\Control\TriggerCommand;
+use Psonic\Channels\Channel;
+use Psonic\Commands\Control\StartControlChannelCommand;
+use Psonic\Commands\Control\TriggerCommand;
 use Psonic\Contracts\Client;
 
 class Control extends Channel

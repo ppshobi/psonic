@@ -1,15 +1,16 @@
 <?php
 
-namespace Psonic\Concretes\Channels;
+namespace Psonic;
 
-use Psonic\Concretes\Commands\Command;
-use Psonic\Concretes\Commands\Ingest\CountCommand;
-use Psonic\Concretes\Commands\Ingest\FlushBucketCommand;
-use Psonic\Concretes\Commands\Ingest\FlushCollectionCommand;
-use Psonic\Concretes\Commands\Ingest\FlushObjectCommand;
-use Psonic\Concretes\Commands\Ingest\PopCommand;
-use Psonic\Concretes\Commands\Ingest\PushCommand;
-use Psonic\Concretes\Commands\Ingest\StartIngestChannelCommand;
+use Psonic\Channels\Channel;
+use Psonic\Commands\Command;
+use Psonic\Commands\Ingest\CountCommand;
+use Psonic\Commands\Ingest\FlushBucketCommand;
+use Psonic\Commands\Ingest\FlushCollectionCommand;
+use Psonic\Commands\Ingest\FlushObjectCommand;
+use Psonic\Commands\Ingest\PopCommand;
+use Psonic\Commands\Ingest\PushCommand;
+use Psonic\Commands\Ingest\StartIngestChannelCommand;
 use Psonic\Contracts\Client;
 use Psonic\Contracts\Response;
 use InvalidArgumentException;

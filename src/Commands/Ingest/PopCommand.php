@@ -1,12 +1,12 @@
 <?php
 
-namespace Psonic\Concretes\Commands\Ingest;
+namespace Psonic\Commands\Ingest;
 
-use Psonic\Concretes\Commands\Command;
+use Psonic\Commands\Command;
 
-class PushCommand extends Command
+class PopCommand extends Command
 {
-    private $command    = 'PUSH';
+    private $command    = 'POP';
     private $parameters = [];
 
     public function __construct(string $collection, string $bucket, string $object, string $text)

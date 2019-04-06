@@ -5,8 +5,8 @@
  */
 namespace Tests\Unit;
 
-use Psonic\Concretes\Channels\Control;
-use Psonic\Concretes\Client;
+use Psonic\Control;
+use Psonic\Client;
 
 use Tests\TestCase;
 
