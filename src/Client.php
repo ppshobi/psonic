@@ -2,10 +2,10 @@
 
 namespace Psonic;
 
-use Psonic\Contracts\Client as ClientInterface;
-use Psonic\Contracts\Response as ResponseInterface;
-use Psonic\Contracts\Command as CommandInterface;
 use Psonic\Exceptions\ConnectionException;
+use Psonic\Contracts\Client as ClientInterface;
+use Psonic\Contracts\Command as CommandInterface;
+use Psonic\Contracts\Response as ResponseInterface;
 
 class Client implements ClientInterface
 {

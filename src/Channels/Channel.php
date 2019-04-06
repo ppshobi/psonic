@@ -2,13 +2,13 @@
 
 
 namespace Psonic\Channels;
-use Psonic\Commands\Misc\PingCommand;
-use Psonic\Commands\Misc\QuitChannelCommand;
-use Psonic\Contracts\Channel as ChannelInterface;
 use Psonic\Contracts\Client;
 use Psonic\Contracts\Command;
 use Psonic\Contracts\Response;
+use Psonic\Commands\Misc\PingCommand;
 use Psonic\Exceptions\ConnectionException;
+use Psonic\Commands\Misc\QuitChannelCommand;
+use Psonic\Contracts\Channel as ChannelInterface;
 
 abstract class Channel implements ChannelInterface
 {

@@ -4,13 +4,11 @@ namespace Psonic;
 
 
 use Psonic\Channels\Channel;
-use Psonic\Commands\Search\QueryCommand;
-use Psonic\Commands\Search\StartSearchChannelCommand;
-use Psonic\Commands\Search\SuggestCommand;
 use Psonic\Contracts\Client;
-use Psonic\Contracts\Command;
-use Psonic\Contracts\Response;
+use Psonic\Commands\Search\QueryCommand;
+use Psonic\Commands\Search\SuggestCommand;
 use Psonic\Exceptions\CommandFailedException;
+use Psonic\Commands\Search\StartSearchChannelCommand;
 
 class Search extends Channel
 {

@@ -4,9 +4,9 @@ namespace Psonic;
 
 
 use Psonic\Channels\Channel;
-use Psonic\Commands\Control\StartControlChannelCommand;
-use Psonic\Commands\Control\TriggerCommand;
 use Psonic\Contracts\Client;
+use Psonic\Commands\Control\TriggerCommand;
+use Psonic\Commands\Control\StartControlChannelCommand;
 
 class Control extends Channel
 {

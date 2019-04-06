@@ -3,17 +3,15 @@
 namespace Psonic;
 
 use Psonic\Channels\Channel;
-use Psonic\Commands\Command;
-use Psonic\Commands\Ingest\CountCommand;
-use Psonic\Commands\Ingest\FlushBucketCommand;
-use Psonic\Commands\Ingest\FlushCollectionCommand;
-use Psonic\Commands\Ingest\FlushObjectCommand;
+use Psonic\Contracts\Client;
+use InvalidArgumentException;
 use Psonic\Commands\Ingest\PopCommand;
 use Psonic\Commands\Ingest\PushCommand;
+use Psonic\Commands\Ingest\CountCommand;
+use Psonic\Commands\Ingest\FlushObjectCommand;
+use Psonic\Commands\Ingest\FlushBucketCommand;
+use Psonic\Commands\Ingest\FlushCollectionCommand;
 use Psonic\Commands\Ingest\StartIngestChannelCommand;
-use Psonic\Contracts\Client;
-use Psonic\Contracts\Response;
-use InvalidArgumentException;
 
 class Ingest extends Channel
 {
