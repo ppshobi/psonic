@@ -1,0 +1,41 @@
+# Psonic Api doc
+
+## Search
+
+You need to instantiate the Psonic/Search class to do the searching operations on sonic
+
+```php
+<?php
+
+$search = new Psonic/Search(new Psonic/Client($host, $port, $timeout));
+echo $search->connect();
+```
+
+after conencting to Search channel you can call the following methods on it
+
+| Methods                                                               |                  Description                   |
+| --------------------------------------------------------------------- | :--------------------------------------------: |
+| `->query(string $collection, string $bucket, string $terms): array`   | Returns an array of matched object identifiers |
+| `->suggest(string $collection, string $bucket, string $terms): array` | Returns an array of strings of autosuggestions |
+
+## Ingest
+
+You need to instantiate the Psonic/Search class to do the searching operations on sonic
+
+```php
+<?php
+
+$ingest = new Psonic/Ingest(new Psonic/Client($host, $port, $timeout));
+echo $ingest->connect();
+```
+
+after conencting to Ingest channel you can call the following methods on it
+
+| Methods                                                                      |                                          Description                                           |
+| ---------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------: |
+| `->push(string $collection,string $bucket, string $object_id, string "data"` |                       Add an item to index and Returns a Sonic Response                        |
+| `->pop(string $collection,string $bucket, string $object_id, string "data"`  |                     pops an item out of index and returns a Sonic Response                     |
+| `->count(string $collection,[string $bucket, [string $object_id]]): int`     |                   counts the number of items in collection, bucket or object                   |
+| `->flushc(string $collection):int`                                           |  Flushes the buckets from a collection, returns a integer saying the number of items flushed   |
+| `->flushb(string $collection, string $bucket):int`                           |    Flushes the objects from a bucket, returns a integer saying the number of items flushed     |
+| `->flusho(string $collection, string $bucket, string $object_id):int`        | Flushes the indexed text from an objects, returns a integer saying the number of items flushed |
