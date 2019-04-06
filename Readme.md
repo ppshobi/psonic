@@ -13,6 +13,8 @@ you need a running sonic instance (locally or in cloud, the port 1491 should be 
 - execute `composer require ppshobi/psonic`
   once the installation is completed you should be able to use the library as follows
 
+## Api Documentaion
+
 [Full API Documentaion](api-docs.md)
 
 ## Usage
