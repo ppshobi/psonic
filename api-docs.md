@@ -17,10 +17,12 @@ after conencting to Search channel you can call the following methods on it
 | --------------------------------------------------------------------- | :--------------------------------------------: |
 | `->query(string $collection, string $bucket, string $terms): array`   | Returns an array of matched object identifiers |
 | `->suggest(string $collection, string $bucket, string $terms): array` | Returns an array of strings of autosuggestions |
+| `->ping(): string`                                                    |     Pings the server, should return _PONG_     |
+| `->disconnect()`                                                      |            Disconnects the channel             |
 
 ## Ingest
 
-You need to instantiate the Psonic/Search class to do the searching operations on sonic
+You need to instantiate the Psonic/Ingest class to do the indexing operations on sonic
 
 ```php
 <?php
@@ -39,3 +41,25 @@ after conencting to Ingest channel you can call the following methods on it
 | `->flushc(string $collection):int`                                           |  Flushes the buckets from a collection, returns a integer saying the number of items flushed   |
 | `->flushb(string $collection, string $bucket):int`                           |    Flushes the objects from a bucket, returns a integer saying the number of items flushed     |
 | `->flusho(string $collection, string $bucket, string $object_id):int`        | Flushes the indexed text from an objects, returns a integer saying the number of items flushed |
+| `->ping(): string`                                                           |                             Pings the server, should return _PONG_                             |
+| `->disconnect()`                                                             |                                    Disconnects the channel                                     |
+
+## Control
+
+You need to instantiate the Psonic/Control class to do the control operations on sonic
+
+```php
+<?php
+
+$control = new Psonic/Control(new Psonic/Client($host, $port, $timeout));
+echo $control->connect();
+```
+
+after conencting to control channel you can call the following methods on it
+
+| Methods                      |                                                                                                 Description                                                                                                  |
+| ---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| `->trigger(string $command)` |                                                                                          Trigger a control command                                                                                           |
+| `->consolidate()`            | **Saves the data to disk**, when a certain number of items are pushed to index , depending on the configuration it can happen automatically. But to be on the safe side you could call this command manually |
+| `->ping(): string`           |                                                                                    Pings the server, should return _PONG_                                                                                    |
+| `->disconnect()`             |                                                                                           Disconnects the channel                                                                                            |
