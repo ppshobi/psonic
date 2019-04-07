@@ -7,7 +7,7 @@ You need to instantiate the Psonic/Search class to do the searching operations o
 ```php
 <?php
 
-$search = new Psonic/Search(new Psonic/Client($host, $port, $timeout));
+$search = new Psonic/Search(new Psonic/Client($host, $port, $password, $timeout));
 echo $search->connect();
 ```
 
@@ -27,7 +27,7 @@ You need to instantiate the Psonic/Ingest class to do the indexing operations on
 ```php
 <?php
 
-$ingest = new Psonic/Ingest(new Psonic/Client($host, $port, $timeout));
+$ingest = new Psonic/Ingest(new Psonic/Client($host, $port, $password, $timeout));
 echo $ingest->connect();
 ```
 
@@ -51,7 +51,7 @@ You need to instantiate the Psonic/Control class to do the control operations on
 ```php
 <?php
 
-$control = new Psonic/Control(new Psonic/Client($host, $port, $timeout));
+$control = new Psonic/Control(new Psonic/Client($host, $port, $password, $timeout));
 echo $control->connect();
 ```
 
