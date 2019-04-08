@@ -4,7 +4,7 @@ namespace Psonic\Commands\Control;
 
 use Psonic\Commands\Command;
 
-class StartControlChannelCommand extends Command
+final class StartControlChannelCommand extends Command
 {
     private $command    = 'START';
     private $parameters = [];
