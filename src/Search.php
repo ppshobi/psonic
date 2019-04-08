@@ -12,11 +12,19 @@ use Psonic\Commands\Search\StartSearchChannelCommand;
 
 class Search extends Channel
 {
+    /**
+     * Search Channel constructor.
+     * @param Client $client
+     */
     public function __construct(Client $client)
     {
         parent::__construct($client);
     }
 
+    /**
+     * @return mixed|Contracts\Response|void
+     * @throws Exceptions\ConnectionException
+     */
     public function connect()
     {
         parent::connect();
@@ -30,6 +38,13 @@ class Search extends Channel
         return $response;
     }
 
+    /**
+     * @param $collection
+     * @param $bucket
+     * @param $terms
+     * @return array
+     * @throws CommandFailedException
+     */
     public function query($collection, $bucket, $terms): array
     {
         $response = $this->send(new QueryCommand($collection, $bucket, $terms));
@@ -47,6 +62,13 @@ class Search extends Channel
         return $results->getResults();
     }
 
+    /**
+     * @param $collection
+     * @param $bucket
+     * @param $terms
+     * @return array
+     * @throws CommandFailedException
+     */
     public function suggest($collection, $bucket, $terms): array
     {
         $response = $this->send(new SuggestCommand($collection, $bucket, $terms));
