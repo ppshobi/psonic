@@ -112,7 +112,7 @@ class Ingest extends Channel
     /**
      * @param $collection
      * @param $bucket
-     * @return mixed
+     * @return integer
      */
     public function flushb($collection, $bucket)
     {
