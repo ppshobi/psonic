@@ -17,13 +17,24 @@ abstract class Channel implements ChannelInterface
      */
     protected $client;
 
+    /**
+     * @var integer
+     */
     protected $bufferSize;
 
+    /**
+     * Channel constructor.
+     * @param Client $client
+     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @return mixed|void
+     * @throws ConnectionException
+     */
     public function connect()
     {
         $this->client->connect();
@@ -34,23 +45,36 @@ abstract class Channel implements ChannelInterface
         throw new ConnectionException;
     }
 
-    public function disconnect()
+    /**
+     * @return Response
+     */
+    public function disconnect(): Response
     {
         $message = $this->client->send(new QuitChannelCommand);
         $this->client->disconnect();
         return $message;
     }
 
+    /**
+     * @return Response
+     */
     public function ping(): Response
     {
         return $this->client->send(new PingCommand);
     }
 
+    /**
+     * @return Response
+     */
     public function read(): Response
     {
         return $this->client->read();
     }
 
+    /**
+     * @param Command $command
+     * @return Response
+     */
     public function send(Command $command): Response
     {
         return $this->client->send($command);
