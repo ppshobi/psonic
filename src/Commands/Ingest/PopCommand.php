@@ -23,14 +23,9 @@ class PopCommand extends Command
             'collection' => $collection,
             'bucket'     => $bucket,
             'object'     => $object,
-            'text'       => $this->quote($text),
+            'text'       => quote($text),
         ];
 
         parent::__construct($this->command, $this->parameters);
-    }
-
-    private function quote(string $string)
-    {
-        return "\"" . $string ."\"";
     }
 }
