@@ -12,6 +12,7 @@ class Client implements ClientInterface
     private $resource;
 
     private $host;
+    private $port;
     private $errorNo;
     private $errorMessage;
     private $maxTimeout;
@@ -62,7 +63,7 @@ class Client implements ClientInterface
      */
     public function connect()
     {
-        if (!$this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errno, $this->errstr, $this->maxTimeout)) {
+        if (!$this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errorNo, $this->errorMessage, $this->maxTimeout)) {
             throw new ConnectionException();
         }
     }
