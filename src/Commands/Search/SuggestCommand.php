@@ -21,15 +21,10 @@ class SuggestCommand extends Command
         $this->parameters = [
             'collection' => $collection,
             'bucket'     => $bucket,
-            'terms'      => $this->quote($terms),
+            'terms'      => quote($terms),
             'limit'      => $limit,
         ];
 
         parent::__construct($this->command, $this->parameters);
-    }
-
-    private function quote(string $string)
-    {
-        return "\"" . $string ."\"";
     }
 }
