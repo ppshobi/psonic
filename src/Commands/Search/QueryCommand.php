@@ -9,6 +9,13 @@ class QueryCommand extends Command
     private $command    = 'QUERY';
     private $parameters = [];
 
+    /**
+     * QueryCommand constructor.
+     * @param string $collection
+     * @param string $bucket
+     * @param string $terms
+     * @param null $limit
+     */
     public function __construct(string $collection, string $bucket, string $terms, $limit = null)
     {
         $this->parameters = [

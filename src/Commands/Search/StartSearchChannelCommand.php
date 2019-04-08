@@ -9,6 +9,10 @@ class StartSearchChannelCommand extends Command
     private $command    = 'START';
     private $parameters = [];
 
+    /**
+     * StartSearchChannelCommand constructor.
+     * @param string $password
+     */
     public function __construct($password = 'SecretPassword')
     {
         $this->parameters = [

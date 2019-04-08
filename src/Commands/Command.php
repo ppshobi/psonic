@@ -15,7 +15,7 @@ abstract class Command implements CommandInterface
         $this->parameters = $parameters;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->command . " " . implode($this->parameters, " ") . "\n";
     }

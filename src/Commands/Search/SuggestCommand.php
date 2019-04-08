@@ -9,6 +9,13 @@ class SuggestCommand extends Command
     private $command    = 'SUGGEST';
     private $parameters = [];
 
+    /**
+     * SuggestCommand constructor.
+     * @param string $collection
+     * @param string $bucket
+     * @param string $terms
+     * @param null $limit
+     */
     public function __construct(string $collection, string $bucket, string $terms, $limit = null)
     {
         $this->parameters = [
