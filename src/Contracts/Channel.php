@@ -3,8 +3,18 @@
 namespace Psonic\Contracts;
 
 
+use Psonic\Exceptions\ConnectionException;
+
 interface Channel
 {
+    /**
+     * @return mixed
+     * @throws ConnectionException
+     */
     public function connect();
-    public function disconnect();
+
+    /**
+     * @return Response
+     */
+    public function disconnect(): Response;
 }
