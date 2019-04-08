@@ -9,6 +9,10 @@ class StartIngestChannelCommand extends Command
     private $command    = 'START';
     private $parameters = [];
 
+    /**
+     * StartIngestChannelCommand constructor.
+     * @param string $password
+     */
     public function __construct($password = 'SecretPassword')
     {
         $this->parameters = [

@@ -9,6 +9,11 @@ class FlushCollectionCommand extends Command
     private $command    = 'FLUSHC';
     private $parameters = [];
 
+    /**
+     * Flushes a given collection
+     * FlushCollectionCommand constructor.
+     * @param string $collection
+     */
     public function __construct(string $collection)
     {
         $this->parameters = [
