@@ -15,11 +15,19 @@ use Psonic\Commands\Ingest\StartIngestChannelCommand;
 
 class Ingest extends Channel
 {
+    /**
+     * Ingest constructor.
+     * @param Client $client
+     */
     public function __construct(Client $client)
     {
         parent::__construct($client);
     }
 
+    /**
+     * @return mixed|Contracts\Response|void
+     * @throws Exceptions\ConnectionException
+     */
     public function connect()
     {
         parent::connect();
@@ -33,9 +41,15 @@ class Ingest extends Channel
         return $response;
     }
 
+    /**
+     * @param string $collection
+     * @param string $bucket
+     * @param string $object
+     * @param string $text
+     * @return Contracts\Response
+     */
     public function push(string $collection, string $bucket, string $object, string $text)
     {
-
         $chunks = $this->splitString($collection,$bucket, $object, $text);
 
         if($text == "" || empty($chunks)) {
@@ -50,20 +64,34 @@ class Ingest extends Channel
         return $message;
     }
 
+    /**
+     * @param string $collection
+     * @param string $bucket
+     * @param string $object
+     * @param string $text
+     * @return mixed
+     */
     public function pop(string $collection, string $bucket, string $object, string $text)
     {
         $chunks = $this->splitString($collection,$bucket, $object, $text);
-
+        $count  = 0;
         foreach ($chunks as $chunk) {
             $message = $this->send(new PopCommand($collection, $bucket, $object, $chunk));
             if($message == false || $message == "") {
                 throw new InvalidArgumentException();
             }
+            $count += $message->get('count');
         }
 
-        return $message->get('count');
+        return $count;
     }
 
+    /**
+     * @param $collection
+     * @param null $bucket
+     * @param null $object
+     * @return mixed
+     */
     public function count($collection, $bucket = null, $object = null)
     {
         $message = $this->send(new CountCommand($collection, $bucket, $object));
@@ -71,24 +99,46 @@ class Ingest extends Channel
         return $message->get('count');
     }
 
+    /**
+     * @param $collection
+     * @return mixed
+     */
     public function flushc($collection)
     {
         $message = $this->send(new FlushCollectionCommand($collection));
         return $message->getCount();
     }
 
-    public function flushb($collection,$bucket)
+    /**
+     * @param $collection
+     * @param $bucket
+     * @return mixed
+     */
+    public function flushb($collection, $bucket)
     {
         $message = $this->send(new FlushBucketCommand($collection, $bucket));
         return $message->getCount();
     }
 
+    /**
+     * @param $collection
+     * @param $bucket
+     * @param $object
+     * @return mixed
+     */
     public function flusho($collection, $bucket, $object)
     {
         $message = $this->send(new FlushObjectCommand($collection, $bucket, $object));
         return $message->getCount();
     }
 
+    /**
+     * @param string $collection
+     * @param string $bucket
+     * @param string $key
+     * @param string $text
+     * @return array
+     */
     private function splitString(string $collection, string $bucket, string $key, string  $text): array
     {
         return str_split($text, ($this->bufferSize - (strlen($key . $collection . $bucket) + 9)));

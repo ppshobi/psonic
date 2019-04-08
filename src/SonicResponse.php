@@ -9,12 +9,20 @@ class SonicResponse implements ResponseInterface
     private $message;
     private $pieces;
     private $results;
+
+    /**
+     * SonicResponse constructor.
+     * @param $message
+     */
     public function __construct($message)
     {
         $this->message = (string) $message;
         $this->parse();
     }
 
+    /**
+     * parses the read buffer into a readable object
+     */
     private function parse()
     {
         $this->pieces = explode(" ", $this->message);
@@ -37,15 +45,26 @@ class SonicResponse implements ResponseInterface
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getResults()
     {
         return $this->results;
     }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return implode(" ", $this->pieces);
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
     public function get($key)
     {
         if(isset($this->pieces[$key])){
@@ -53,11 +72,17 @@ class SonicResponse implements ResponseInterface
         }
     }
 
-    public function getStatus()
+    /**
+     * @return mixed
+     */
+    public function getStatus(): string
     {
         return $this->get('status');
     }
 
+    /**
+     * @return int
+     */
     public function getCount()
     {
         return $this->get('count') ?? 0;

@@ -5,5 +5,9 @@ namespace Psonic\Contracts;
 
 interface Command
 {
-    public function __toString();
+    /**
+     * @return string
+     * ultimately a command instance get translated into a string
+     */
+    public function __toString(): string ;
 }
