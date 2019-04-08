@@ -37,7 +37,7 @@ abstract class Channel implements ChannelInterface
     public function disconnect()
     {
         $message = $this->client->send(new QuitChannelCommand);
-         $this->client->disconnect();
+        $this->client->disconnect();
         return $message;
     }
 
