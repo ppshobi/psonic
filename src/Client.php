@@ -15,6 +15,13 @@ class Client implements ClientInterface
     private $errorNo;
     private $errorMessage;
     private $maxTimeout;
+
+    /**
+     * Client constructor.
+     * @param string $host
+     * @param int $port
+     * @param int $timeout
+     */
     public function __construct($host = 'localhost', $port = 1491, $timeout = 30)
     {
         $this->host = $host;
@@ -24,6 +31,11 @@ class Client implements ClientInterface
         $this->errorMessage = '';
     }
 
+    /**
+     * @param CommandInterface $command
+     * @return ResponseInterface
+     * @throws ConnectionException
+     */
     public function send(CommandInterface $command): ResponseInterface
     {
         if (!$this->resource) {
@@ -34,12 +46,20 @@ class Client implements ClientInterface
         return $this->read();
     }
 
-    public function read()
+    /**
+     * reads the buffer from a given stream
+     * @return ResponseInterface
+     */
+    public function read(): ResponseInterface
     {
         $message = stream_get_line($this->resource, 2048, "\r\n");
         return new SonicResponse($message);
     }
 
+    /**
+     * @throws ConnectionException
+     * connects to the socket
+     */
     public function connect()
     {
         if (!$this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errno, $this->errstr, $this->maxTimeout)) {
@@ -47,12 +67,19 @@ class Client implements ClientInterface
         }
     }
 
+    /**
+     * Disconnects from a socket
+     */
     public function disconnect()
     {
         stream_socket_shutdown($this->resource, STREAM_SHUT_WR);
         $this->resource = null;
     }
 
+    /**
+     * @return bool
+     * clears the output buffer
+     */
     public function clearBuffer()
     {
         stream_get_line($this->resource, 4096, "\r\n");
