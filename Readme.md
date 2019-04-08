@@ -1,4 +1,6 @@
-# Psonic - PHP client for sonic auto suggestion engine [![Build Status](https://travis-ci.com/ppshobi/psonic.svg?branch=master)](https://travis-ci.com/ppshobi/psonic)
+# Psonic - PHP client for sonic auto suggestion engine 
+[![Build Status](https://travis-ci.com/ppshobi/psonic.svg?branch=master)](https://travis-ci.com/ppshobi/psonic)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ppshobi/psonic/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ppshobi/psonic/?branch=master)
 
 ## Summary
 
