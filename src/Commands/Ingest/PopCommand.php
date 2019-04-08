@@ -4,7 +4,7 @@ namespace Psonic\Commands\Ingest;
 
 use Psonic\Commands\Command;
 
-class PopCommand extends Command
+final class PopCommand extends Command
 {
     private $command    = 'POP';
     private $parameters = [];

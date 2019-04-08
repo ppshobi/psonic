@@ -4,7 +4,7 @@ namespace Psonic\Commands\Search;
 
 use Psonic\Commands\Command;
 
-class StartSearchChannelCommand extends Command
+final class StartSearchChannelCommand extends Command
 {
     private $command    = 'START';
     private $parameters = [];

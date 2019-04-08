@@ -4,7 +4,7 @@ namespace Psonic\Commands\Search;
 
 use Psonic\Commands\Command;
 
-class SuggestCommand extends Command
+final class SuggestCommand extends Command
 {
     private $command    = 'SUGGEST';
     private $parameters = [];

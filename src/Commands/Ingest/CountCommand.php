@@ -4,7 +4,7 @@ namespace Psonic\Commands\Ingest;
 
 use Psonic\Commands\Command;
 
-class CountCommand extends Command
+final class CountCommand extends Command
 {
     private $command    = 'COUNT';
     private $parameters = [];

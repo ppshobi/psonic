@@ -75,7 +75,7 @@ class SonicResponse implements ResponseInterface
     /**
      * @return mixed
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->get('status');
     }

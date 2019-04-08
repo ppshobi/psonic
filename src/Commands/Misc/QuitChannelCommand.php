@@ -6,7 +6,7 @@ namespace Psonic\Commands\Misc;
 use Psonic\Commands\Command;
 
 
-class QuitChannelCommand extends Command
+final class QuitChannelCommand extends Command
 {
     private $command = 'QUIT';
     private $parameters = [];

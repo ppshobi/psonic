@@ -4,7 +4,7 @@ namespace Psonic\Commands\Ingest;
 
 use Psonic\Commands\Command;
 
-class PushCommand extends Command
+final class PushCommand extends Command
 {
     private $command    = 'PUSH';
     private $parameters = [];

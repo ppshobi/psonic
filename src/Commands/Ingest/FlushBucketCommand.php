@@ -4,7 +4,7 @@ namespace Psonic\Commands\Ingest;
 
 use Psonic\Commands\Command;
 
-class FlushBucketCommand extends Command
+final class FlushBucketCommand extends Command
 {
     private $command    = 'FLUSHO';
     private $parameters = [];

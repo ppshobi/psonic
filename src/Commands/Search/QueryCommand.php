@@ -4,7 +4,7 @@ namespace Psonic\Commands\Search;
 
 use Psonic\Commands\Command;
 
-class QueryCommand extends Command
+final class QueryCommand extends Command
 {
     private $command    = 'QUERY';
     private $parameters = [];
