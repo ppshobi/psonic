@@ -101,4 +101,16 @@ class IngestChannelTest extends TestCase
 
 
 
+    /**
+     * @test
+     *
+     **/
+    public function it_can_flush_an_object()
+    {
+        $this->ingest->connect();
+        $this->ingest->flushc($this->collection);
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you?")->getStatus());
+        $this->assertEquals(1, $this->ingest->flusho($this->collection, $this->bucket, "1234"));
+    }
+
 }
