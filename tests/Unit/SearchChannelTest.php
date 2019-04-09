@@ -67,6 +67,29 @@ class SearchChannelTest extends TestCase
      * @test
      *
      */
+    public function it_can_apply_limit_on_returned_records_for_a_suggest_command()
+    {
+        $this->ingest->connect();
+        $this->search->connect();
+        $this->control->connect();
+
+        $this->ingest->flushc($this->collection);
+
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "coincident")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1235", "coincidental")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "3456", "coinciding")->getStatus());
+
+        $this->control->consolidate();
+
+        $this->assertCount(3, $this->search->suggest($this->collection, $this->bucket, "coin"));
+        $this->assertCount(2, $this->search->suggest($this->collection, $this->bucket, "coin", 2));
+        $this->assertCount(1, $this->search->suggest($this->collection, $this->bucket, "coin", 1));
+    }
+
+    /**
+     * @test
+     *
+     */
     public function it_can_query_sonic_protocol_and_return_suggestions()
     {
         $this->ingest->connect();

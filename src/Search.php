@@ -67,12 +67,13 @@ class Search extends Channel
      * @param $collection
      * @param $bucket
      * @param $terms
+     * @param $limit
      * @return array
      * @throws CommandFailedException
      */
-    public function suggest($collection, $bucket, $terms): array
+    public function suggest($collection, $bucket, $terms, $limit=null): array
     {
-        $response = $this->send(new SuggestCommand($collection, $bucket, $terms));
+        $response = $this->send(new SuggestCommand($collection, $bucket, $terms, $limit));
 
         if(! $response->getStatus() == 'PENDING') {
             throw new CommandFailedException;
