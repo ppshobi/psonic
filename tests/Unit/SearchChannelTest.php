@@ -45,6 +45,28 @@ class SearchChannelTest extends TestCase
      * @test
      *
      */
+    public function it_can_apply_limit_on_returned_records_for_a_query()
+    {
+        $this->ingest->connect();
+        $this->search->connect();
+        $this->control->connect();
+
+        $this->ingest->flushc($this->collection);
+
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you?")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1235", "hi are you fine ?")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "3456", "Jomit? How are you?")->getStatus());
+
+        $this->control->consolidate();
+
+        $this->assertCount(2, $this->search->query($this->collection, $this->bucket, "are", 2));
+        $this->assertCount(1, $this->search->query($this->collection, $this->bucket, "are", 1));
+    }
+
+    /**
+     * @test
+     *
+     */
     public function it_can_query_sonic_protocol_and_return_suggestions()
     {
         $this->ingest->connect();

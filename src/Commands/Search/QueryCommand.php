@@ -22,7 +22,7 @@ final class QueryCommand extends Command
             'collection' => $collection,
             'bucket'     => $bucket,
             'terms'      => quote($terms),
-            'limit'      => $limit,
+            'limit'      => $limit ? "LIMIT($limit)": null,
         ];
 
         parent::__construct($this->command, $this->parameters);

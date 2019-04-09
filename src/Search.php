@@ -42,12 +42,13 @@ class Search extends Channel
      * @param $collection
      * @param $bucket
      * @param $terms
+     * @param $limit
      * @return array
      * @throws CommandFailedException
      */
-    public function query($collection, $bucket, $terms): array
+    public function query($collection, $bucket, $terms, $limit = null): array
     {
-        $response = $this->send(new QueryCommand($collection, $bucket, $terms));
+        $response = $this->send(new QueryCommand($collection, $bucket, $terms, $limit));
 
         if(! $response->getStatus() == 'PENDING') {
             throw new CommandFailedException;
