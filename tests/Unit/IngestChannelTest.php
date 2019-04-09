@@ -25,9 +25,9 @@ class IngestChannelTest extends TestCase
     public function it_can_push_items_to_the_index()
     {
         $this->ingest->connect();
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234","hi Shobi how are you")->getStatus());
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "4567","hi Naveen")->getStatus());
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "7890","hi Jomit")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "4567", "hi Naveen")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "7890", "hi Jomit")->getStatus());
     }
 
     /**
@@ -87,6 +87,40 @@ class IngestChannelTest extends TestCase
 
     //TODO: separate tests for flushc, flushb, flusho commands
 
-    
+    /**
+     * @test
+     *
+     **/
+    public function it_can_flush_a_collection()
+    {
+        $this->ingest->connect();
+        $this->ingest->flushc($this->collection);
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you?")->getStatus());
+        $this->assertEquals(1, $this->ingest->flushc($this->collection));
+    }
 
+    /**
+     * @test
+     *
+     **/
+    public function it_can_flush_a_bucket()
+    {
+        $this->markTestSkipped('Because there is a bug in sonic engine. It returns unexpected count');
+        $this->ingest->connect();
+        $this->ingest->flushc($this->collection);
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "123", "hi Shobi how are you?")->getStatus());
+        $this->assertEquals(1, $this->ingest->flushb($this->collection, $this->bucket));
+    }
+
+    /**
+     * @test
+     *
+     **/
+    public function it_can_flush_an_object()
+    {
+        $this->ingest->connect();
+        $this->ingest->flushc($this->collection);
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you?")->getStatus());
+        $this->assertEquals(1, $this->ingest->flusho($this->collection, $this->bucket, "1234"));
+    }
 }

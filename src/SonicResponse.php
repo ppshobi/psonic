@@ -83,7 +83,7 @@ class SonicResponse implements ResponseInterface
     /**
      * @return int
      */
-    public function getCount()
+    public function getCount():int
     {
         return $this->get('count') ?? 0;
     }

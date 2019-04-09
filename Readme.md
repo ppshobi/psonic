@@ -1,7 +1,7 @@
 # Psonic - PHP client for sonic auto suggestion engine 
 [![Build Status](https://travis-ci.com/ppshobi/psonic.svg?branch=master)](https://travis-ci.com/ppshobi/psonic)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ppshobi/psonic/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ppshobi/psonic/?branch=master)
-
+[![codecov](https://codecov.io/gh/ppshobi/psonic/branch/master/graph/badge.svg)](https://codecov.io/gh/ppshobi/psonic)
 ## Summary
 
 Sonic is a super fast auto-suggestion engine built by the team at [crisp.chat](crisp.chat), a customer engagement platform. it is built in Rust and they officially support a javascript client, but if you want to use sonic via PHP, this is the library that you can look for.
