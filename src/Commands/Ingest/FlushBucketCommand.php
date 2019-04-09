@@ -6,7 +6,7 @@ use Psonic\Commands\Command;
 
 final class FlushBucketCommand extends Command
 {
-    private $command    = 'FLUSHO';
+    private $command    = 'FLUSHB';
     private $parameters = [];
 
     /**

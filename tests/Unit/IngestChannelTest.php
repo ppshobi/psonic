@@ -25,9 +25,9 @@ class IngestChannelTest extends TestCase
     public function it_can_push_items_to_the_index()
     {
         $this->ingest->connect();
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234","hi Shobi how are you")->getStatus());
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "4567","hi Naveen")->getStatus());
-        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "7890","hi Jomit")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "4567", "hi Naveen")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "7890", "hi Jomit")->getStatus());
     }
 
     /**
@@ -99,7 +99,17 @@ class IngestChannelTest extends TestCase
         $this->assertEquals(1, $this->ingest->flushc($this->collection));
     }
 
-
+    /**
+     * @test
+     *
+     **/
+    public function it_can_flush_a_bucket()
+    {
+        $this->ingest->connect();
+        $this->ingest->flushc($this->collection);
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "123", "hi Shobi how are you?")->getStatus());
+        $this->assertEquals(1, $this->ingest->flushb($this->collection, $this->bucket));
+    }
 
     /**
      * @test
@@ -112,5 +122,4 @@ class IngestChannelTest extends TestCase
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you?")->getStatus());
         $this->assertEquals(1, $this->ingest->flusho($this->collection, $this->bucket, "1234"));
     }
-
 }
