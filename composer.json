@@ -2,6 +2,12 @@
   "name": "ppshobi/psonic",
   "description": "PHP client for Sonic Search Engine",
   "type": "library",
+  "keywords": [
+    "sonic",
+    "auto suggestion",
+    "psonic",
+    "search engine"
+  ],
   "require": {
     "php": "^7.0"
   },
