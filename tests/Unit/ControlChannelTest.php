@@ -19,7 +19,7 @@ class ControlChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      */
     public function it_can_trigger_consolidation()
     {

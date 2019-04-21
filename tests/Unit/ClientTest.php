@@ -21,6 +21,7 @@ class ClientTest extends TestCase
 
     /**
      * @test
+     * @group connected
      */
     public function the_client_can_connect_to_socket()
     {
@@ -30,6 +31,7 @@ class ClientTest extends TestCase
 
     /**
      * @test
+     * @group connected
      */
     public function the_client_can_disconnect_from_socket_and_throws_exception_if_connection_is_not_present()
     {
@@ -41,6 +43,7 @@ class ClientTest extends TestCase
 
     /**
      * @test
+     * @group connected
      */
     public function the_client_can_send_command_and_read_its_response()
     {
@@ -52,6 +55,7 @@ class ClientTest extends TestCase
 
     /**
      * @test
+     * @group connected
      */
     public function the_client_can_clear_the_output_buffer()
     {
@@ -62,6 +66,7 @@ class ClientTest extends TestCase
 
     /**
      * @test
+     * @group connected
      */
     public function the_client_can_send_a_command_to_sonic_and_returns_a_response_object()
     {
