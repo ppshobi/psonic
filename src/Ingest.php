@@ -46,17 +46,19 @@ class Ingest extends Channel
      * @param string $bucket
      * @param string $object
      * @param string $text
+     * @param string $locale
      * @return Contracts\Response
      */
-    public function push(string $collection, string $bucket, string $object, string $text)
+    public function push(string $collection, string $bucket, string $object, string $text, $locale=null)
     {
+
         $chunks = $this->splitString($collection,$bucket, $object, $text);
 
         if($text == "" || empty($chunks)) {
             throw new InvalidArgumentException("The parameter \$text is empty");
         }
         foreach ($chunks as $chunk) {
-            $message = $this->send(new PushCommand($collection, $bucket, $object, $chunk));
+            $message = $this->send(new PushCommand($collection, $bucket, $object, $chunk, $locale));
             if($message == false || $message == "") {
                 throw new InvalidArgumentException();
             }
@@ -141,6 +143,6 @@ class Ingest extends Channel
      */
     private function splitString(string $collection, string $bucket, string $key, string  $text): array
     {
-        return str_split($text, ($this->bufferSize - (strlen($key . $collection . $bucket) + 9)));
+        return str_split($text, ($this->bufferSize - (strlen($key . $collection . $bucket) + 20)));
     }
 }
