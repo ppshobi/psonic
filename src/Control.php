@@ -5,6 +5,7 @@ namespace Psonic;
 
 use Psonic\Channels\Channel;
 use Psonic\Contracts\Client;
+use Psonic\Commands\Control\InfoCommand;
 use Psonic\Commands\Control\TriggerCommand;
 use Psonic\Commands\Control\StartControlChannelCommand;
 
@@ -51,5 +52,10 @@ class Control extends Channel
     public function consolidate()
     {
         return $this->trigger('consolidate');
+    }
+
+    public function info()
+    {
+        return $this->send(new InfoCommand);
     }
 }

@@ -3,6 +3,7 @@
 namespace Psonic;
 
 use Psonic\Contracts\Response as ResponseInterface;
+use Psonic\Exceptions\CommandFailedException;
 
 class SonicResponse implements ResponseInterface 
 {
@@ -22,6 +23,7 @@ class SonicResponse implements ResponseInterface
 
     /**
      * parses the read buffer into a readable object
+     * @throws CommandFailedException
      */
     private function parse()
     {
@@ -33,6 +35,10 @@ class SonicResponse implements ResponseInterface
 
         $this->pieces['status'] = $this->pieces[0];
         unset($this->pieces[0]);
+
+        if($this->pieces['status'] === 'ERR') {
+            throw new CommandFailedException($this->message);
+        }
 
         if($this->pieces['status'] === 'RESULT') {
             $this->pieces['count'] = (int) $this->pieces[1];

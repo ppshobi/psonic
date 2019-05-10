@@ -19,7 +19,7 @@ class ControlChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      */
     public function it_can_trigger_consolidation()
     {
@@ -27,5 +27,16 @@ class ControlChannelTest extends TestCase
 
         $this->assertEquals("OK", $this->control->consolidate());
 
+    }
+
+    /**
+     * @test
+     *
+     **/
+    public function it_can_fetch_information_about_the_server()
+    {
+        $this->control->connect();
+
+        $this->assertEquals(0, $this->control->info()->getCount());
     }
 }

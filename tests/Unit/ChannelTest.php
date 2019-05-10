@@ -24,7 +24,7 @@ class ChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      **/
     public function channels_can_connect_to_sonic_channel_protocol()
     {
@@ -35,7 +35,7 @@ class ChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      **/
     public function channels_can_send_a_command_and_returns_a_response()
     {
@@ -55,6 +55,7 @@ class ChannelTest extends TestCase
 
     /**
      * @test
+     * @group connected
      */
     public function channels_can_disconnect_from_sonic_protocol()
     {

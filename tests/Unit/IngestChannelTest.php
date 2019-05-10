@@ -20,7 +20,7 @@ class IngestChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      **/
     public function it_can_push_items_to_the_index()
     {
@@ -32,17 +32,18 @@ class IngestChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      **/
     public function it_can_push_huge_items_to_the_index()
     {
         $this->ingest->connect();
+
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", bin2hex(openssl_random_pseudo_bytes(30000)))->getStatus());
     }
 
     /**
      * @test
-     *
+     * @group connected
      **/
     public function it_can_pop_items_from_index()
     {
@@ -63,7 +64,7 @@ class IngestChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      **/
     public function it_can_count_the_objects()
     {
@@ -85,11 +86,9 @@ class IngestChannelTest extends TestCase
         $this->assertEquals(3, $this->ingest->count($this->collection, $this->bucket));
     }
 
-    //TODO: separate tests for flushc, flushb, flusho commands
-
     /**
      * @test
-     *
+     * @group connected
      **/
     public function it_can_flush_a_collection()
     {
@@ -101,11 +100,10 @@ class IngestChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      **/
     public function it_can_flush_a_bucket()
     {
-        $this->markTestSkipped('Because there is a bug in sonic engine. It returns unexpected count');
         $this->ingest->connect();
         $this->ingest->flushc($this->collection);
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "123", "hi Shobi how are you?")->getStatus());
@@ -114,7 +112,7 @@ class IngestChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      **/
     public function it_can_flush_an_object()
     {
@@ -123,4 +121,9 @@ class IngestChannelTest extends TestCase
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you?")->getStatus());
         $this->assertEquals(1, $this->ingest->flusho($this->collection, $this->bucket, "1234"));
     }
+
+    // @todo
+    /**
+     * Implement tests for locale based ingestion
+     */
 }

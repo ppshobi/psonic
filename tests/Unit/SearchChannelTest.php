@@ -22,7 +22,7 @@ class SearchChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      */
     public function it_can_query_sonic_protocol_and_return_matched_records()
     {
@@ -43,7 +43,7 @@ class SearchChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      */
     public function it_can_apply_limit_on_returned_records_for_a_query()
     {
@@ -65,7 +65,7 @@ class SearchChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      */
     public function it_can_apply_limit_on_returned_records_for_a_suggest_command()
     {
@@ -88,7 +88,7 @@ class SearchChannelTest extends TestCase
 
     /**
      * @test
-     *
+     * @group connected
      */
     public function it_can_query_sonic_protocol_and_return_suggestions()
     {
@@ -108,4 +108,8 @@ class SearchChannelTest extends TestCase
         $this->assertContains("shobi", $results);
     }
 
+    // @todo
+    /**
+     * Implement tests for locale based query and suggest commands
+     */
 }
