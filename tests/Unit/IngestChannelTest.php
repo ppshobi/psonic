@@ -37,6 +37,7 @@ class IngestChannelTest extends TestCase
     public function it_can_push_huge_items_to_the_index()
     {
         $this->ingest->connect();
+
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", bin2hex(openssl_random_pseudo_bytes(30000)))->getStatus());
     }
 
