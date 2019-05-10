@@ -103,7 +103,6 @@ class IngestChannelTest extends TestCase
      **/
     public function it_can_flush_a_bucket()
     {
-        $this->markTestSkipped('Because there is a bug in sonic engine. It returns unexpected count unitl v.10 is released');
         $this->ingest->connect();
         $this->ingest->flushc($this->collection);
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "123", "hi Shobi how are you?")->getStatus());
