@@ -121,4 +121,9 @@ class IngestChannelTest extends TestCase
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi Shobi how are you?")->getStatus());
         $this->assertEquals(1, $this->ingest->flusho($this->collection, $this->bucket, "1234"));
     }
+
+    // @todo
+    /**
+     * Implement tests for locale based ingestion
+     */
 }

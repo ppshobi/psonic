@@ -108,4 +108,8 @@ class SearchChannelTest extends TestCase
         $this->assertContains("shobi", $results);
     }
 
+    // @todo
+    /**
+     * Implement tests for locale based query and suggest commands
+     */
 }
