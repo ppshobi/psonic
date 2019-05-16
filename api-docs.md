@@ -6,9 +6,9 @@ You need to instantiate the Psonic/Search class to do the searching operations o
 
 ```php
 <?php
-
-$search = new Psonic/Search(new Psonic/Client($host, $port, $password, $timeout));
-echo $search->connect();
+$password = 'SecretPassword';
+$search = new Psonic/Search(new Psonic/Client($host, $port, $timeout));
+echo $search->connect($password);
 ```
 
 after connecting to Search channel you can call the following methods on it
@@ -26,9 +26,9 @@ You need to instantiate the Psonic/Ingest class to do the indexing operations on
 
 ```php
 <?php
-
-$ingest = new Psonic/Ingest(new Psonic/Client($host, $port, $password, $timeout));
-echo $ingest->connect();
+$password = 'SecretPassword';
+$ingest = new Psonic/Ingest(new Psonic/Client($host, $port, $timeout));
+echo $ingest->connect($password);
 ```
 
 after connecting to Ingest channel you can call the following methods on it
@@ -50,9 +50,9 @@ You need to instantiate the Psonic/Control class to do the control operations on
 
 ```php
 <?php
-
-$control = new Psonic/Control(new Psonic/Client($host, $port, $password, $timeout));
-echo $control->connect();
+$password = 'SecretPassword';
+$control = new Psonic/Control(new Psonic/Client($host, $port, $timeout));
+echo $control->connect($password);
 ```
 
 after connecting to control channel you can call the following methods on it
