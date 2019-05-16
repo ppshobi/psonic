@@ -6,17 +6,17 @@ You need to instantiate the Psonic/Search class to do the searching operations o
 
 ```php
 <?php
-
-$search = new Psonic/Search(new Psonic/Client($host, $port, $password, $timeout));
-echo $search->connect();
+$password = 'SecretPassword';
+$search = new Psonic/Search(new Psonic/Client($host, $port, $timeout));
+echo $search->connect($password);
 ```
 
 after connecting to Search channel you can call the following methods on it
 
 | Methods                                                               |                  Description                   |
 | --------------------------------------------------------------------- | :--------------------------------------------: |
-| `->query(string $collection, string $bucket, string $terms): array`   | Returns an array of matched object identifiers |
-| `->suggest(string $collection, string $bucket, string $terms): array` | Returns an array of strings of autosuggestions |
+| `->query(string $collection, string $bucket, string $terms, [string <locale>]): array`   | Returns an array of matched object identifiers, locale is optional, which should be a valid [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) locale (eng = English), if set to `none` lexing will be disabled  |
+| `->suggest(string $collection, string $bucket, string $terms, [string <locale>]): array` | Returns an array of strings of autosuggestions, locale is optional, which should be a valid [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) locale (eng = English), if set to `none` lexing will be disabled  |
 | `->ping(): string`                                                    |     Pings the server, should return _PONG_     |
 | `->disconnect()`                                                      |            Disconnects the channel             |
 
@@ -26,16 +26,16 @@ You need to instantiate the Psonic/Ingest class to do the indexing operations on
 
 ```php
 <?php
-
-$ingest = new Psonic/Ingest(new Psonic/Client($host, $port, $password, $timeout));
-echo $ingest->connect();
+$password = 'SecretPassword';
+$ingest = new Psonic/Ingest(new Psonic/Client($host, $port, $timeout));
+echo $ingest->connect($password);
 ```
 
 after connecting to Ingest channel you can call the following methods on it
 
 | Methods                                                                      |                                          Description                                           |
 | ---------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------: |
-| `->push(string $collection,string $bucket, string $object_id, string "data"` |                       Add an item to index and Returns a Sonic Response                        |
+| `->push(string $collection,string $bucket, string $object_id, string "data", [string <locale>])` |                       Add an item to index and Returns a Sonic Response, locale is optional, which should be a valid [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) locale (eng = English), if set to `none` lexing will be disabled                       |
 | `->pop(string $collection,string $bucket, string $object_id, string "data"`  |                     pops an item out of index and returns a Sonic Response                     |
 | `->count(string $collection,[string $bucket, [string $object_id]]): int`     |                   counts the number of items in collection, bucket or object                   |
 | `->flushc(string $collection):int`                                           |  Flushes the buckets from a collection, returns a integer saying the number of items flushed   |
@@ -50,9 +50,9 @@ You need to instantiate the Psonic/Control class to do the control operations on
 
 ```php
 <?php
-
-$control = new Psonic/Control(new Psonic/Client($host, $port, $password, $timeout));
-echo $control->connect();
+$password = 'SecretPassword';
+$control = new Psonic/Control(new Psonic/Client($host, $port, $timeout));
+echo $control->connect($password);
 ```
 
 after connecting to control channel you can call the following methods on it
@@ -62,4 +62,5 @@ after connecting to control channel you can call the following methods on it
 | `->trigger(string $command)` |                                                                                          Trigger a control command                                                                                          |
 | `->consolidate()`            | **Saves the data to disk**, when a certain number of items are pushed to index, depending on the configuration it can happen automatically. But to be on the safe side you could call this command manually |
 | `->ping(): string`           |                                                                                   Pings the server, should return _PONG_                                                                                    |
+| `->info()`             |                                                                                           Get the information about the server                                                                                           |
 | `->disconnect()`             |                                                                                           Disconnects the channel                                                                                           |

@@ -25,14 +25,14 @@ class Search extends Channel
      * @return mixed|Contracts\Response|void
      * @throws Exceptions\ConnectionException
      */
-    public function connect()
+    public function connect($password = 'SecretPassword')
     {
         parent::connect();
 
-        $response = $this->send(new StartSearchChannelCommand());
+        $response = $this->send(new StartSearchChannelCommand($password));
 
-        if($bufferSize = $response->get('bufferSize')){
-            $this->bufferSize = (int) $bufferSize;
+        if ($bufferSize = $response->get('bufferSize')) {
+            $this->bufferSize = (int)$bufferSize;
         }
 
         return $response;
@@ -50,13 +50,13 @@ class Search extends Channel
     {
         $response = $this->send(new QueryCommand($collection, $bucket, $terms, $limit));
 
-        if(! $response->getStatus() == 'PENDING') {
+        if (!$response->getStatus() == 'PENDING') {
             throw new CommandFailedException;
         }
 
         $results = $this->read();
 
-        if(! $results->getStatus() == 'EVENT') {
+        if (!$results->getStatus() == 'EVENT') {
             throw new CommandFailedException;
         }
 
@@ -71,17 +71,17 @@ class Search extends Channel
      * @return array
      * @throws CommandFailedException
      */
-    public function suggest($collection, $bucket, $terms, $limit=null): array
+    public function suggest($collection, $bucket, $terms, $limit = null): array
     {
         $response = $this->send(new SuggestCommand($collection, $bucket, $terms, $limit));
 
-        if(! $response->getStatus() == 'PENDING') {
+        if (!$response->getStatus() == 'PENDING') {
             throw new CommandFailedException;
         }
 
         $results = $this->read();
 
-        if(! $results->getStatus() == 'EVENT') {
+        if (!$results->getStatus() == 'EVENT') {
             throw new CommandFailedException;
         }
 

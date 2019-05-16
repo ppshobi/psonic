@@ -28,14 +28,14 @@ class Ingest extends Channel
      * @return mixed|Contracts\Response|void
      * @throws Exceptions\ConnectionException
      */
-    public function connect()
+    public function connect($password = 'SecretPassword')
     {
         parent::connect();
 
-        $response = $this->send(new StartIngestChannelCommand);
+        $response = $this->send(new StartIngestChannelCommand($password));
 
-        if($bufferSize = $response->get('bufferSize')){
-            $this->bufferSize = (int) $bufferSize;
+        if ($bufferSize = $response->get('bufferSize')) {
+            $this->bufferSize = (int)$bufferSize;
         }
 
         return $response;
@@ -49,17 +49,17 @@ class Ingest extends Channel
      * @param string $locale
      * @return Contracts\Response
      */
-    public function push(string $collection, string $bucket, string $object, string $text, $locale=null)
+    public function push(string $collection, string $bucket, string $object, string $text, $locale = null)
     {
 
-        $chunks = $this->splitString($collection,$bucket, $object, $text);
+        $chunks = $this->splitString($collection, $bucket, $object, $text);
 
-        if($text == "" || empty($chunks)) {
+        if ($text == "" || empty($chunks)) {
             throw new InvalidArgumentException("The parameter \$text is empty");
         }
         foreach ($chunks as $chunk) {
             $message = $this->send(new PushCommand($collection, $bucket, $object, $chunk, $locale));
-            if($message == false || $message == "") {
+            if ($message == false || $message == "") {
                 throw new InvalidArgumentException();
             }
         }
@@ -75,11 +75,11 @@ class Ingest extends Channel
      */
     public function pop(string $collection, string $bucket, string $object, string $text)
     {
-        $chunks = $this->splitString($collection,$bucket, $object, $text);
+        $chunks = $this->splitString($collection, $bucket, $object, $text);
         $count  = 0;
         foreach ($chunks as $chunk) {
             $message = $this->send(new PopCommand($collection, $bucket, $object, $chunk));
-            if($message == false || $message == "") {
+            if ($message == false || $message == "") {
                 throw new InvalidArgumentException();
             }
             $count += $message->get('count');
