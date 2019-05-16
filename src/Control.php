@@ -24,14 +24,14 @@ class Control extends Channel
      * @return mixed|Contracts\Response|void
      * @throws Exceptions\ConnectionException
      */
-    public function connect()
+    public function connect($password = 'SecretPassword')
     {
         parent::connect();
 
-        $response = $this->send(new StartControlChannelCommand());
+        $response = $this->send(new StartControlChannelCommand($password = 'SecretPassword'));
 
-        if($bufferSize = $response->get('bufferSize')){
-            $this->bufferSize = (int) $bufferSize;
+        if ($bufferSize = $response->get('bufferSize')) {
+            $this->bufferSize = (int)$bufferSize;
         }
 
         return $response;
