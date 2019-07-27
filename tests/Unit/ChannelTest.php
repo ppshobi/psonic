@@ -28,9 +28,9 @@ class ChannelTest extends TestCase
      **/
     public function channels_can_connect_to_sonic_channel_protocol()
     {
-        $this->assertEquals("STARTED", $this->search->connect()->getStatus());
-        $this->assertEquals("STARTED", $this->ingest->connect()->getStatus());
-        $this->assertEquals("STARTED", $this->control->connect()->getStatus());
+        $this->assertEquals("STARTED", $this->search->connect($this->password)->getStatus());
+        $this->assertEquals("STARTED", $this->ingest->connect($this->password)->getStatus());
+        $this->assertEquals("STARTED", $this->control->connect($this->password)->getStatus());
     }
 
     /**
@@ -71,9 +71,9 @@ class ChannelTest extends TestCase
 
     private function connect_all_channels()
     {
-        $this->search->connect();
-        $this->ingest->connect();
-        $this->control->connect();
+        $this->search->connect('SecretPassword1');
+        $this->ingest->connect('SecretPassword1');
+        $this->control->connect('SecretPassword1');
     }
 
 }
