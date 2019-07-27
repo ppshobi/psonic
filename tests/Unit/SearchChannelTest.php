@@ -26,9 +26,9 @@ class SearchChannelTest extends TestCase
      */
     public function it_can_query_sonic_protocol_and_return_matched_records()
     {
-        $this->ingest->connect();
-        $this->search->connect();
-        $this->control->connect();
+        $this->ingest->connect($this->password);
+        $this->search->connect($this->password);
+        $this->control->connect($this->password);
 
         $this->ingest->flushc($this->collection);
 
@@ -47,9 +47,9 @@ class SearchChannelTest extends TestCase
      */
     public function it_can_apply_limit_on_returned_records_for_a_query()
     {
-        $this->ingest->connect();
-        $this->search->connect();
-        $this->control->connect();
+        $this->ingest->connect($this->password);
+        $this->search->connect($this->password);
+        $this->control->connect($this->password);
 
         $this->ingest->flushc($this->collection);
 
@@ -69,9 +69,9 @@ class SearchChannelTest extends TestCase
      */
     public function it_can_apply_limit_on_returned_records_for_a_suggest_command()
     {
-        $this->ingest->connect();
-        $this->search->connect();
-        $this->control->connect();
+        $this->ingest->connect($this->password);
+        $this->search->connect($this->password);
+        $this->control->connect($this->password);
 
         $this->ingest->flushc($this->collection);
 
@@ -92,9 +92,9 @@ class SearchChannelTest extends TestCase
      */
     public function it_can_query_sonic_protocol_and_return_suggestions()
     {
-        $this->ingest->connect();
-        $this->search->connect();
-        $this->control->connect();
+        $this->ingest->connect($this->password);
+        $this->search->connect($this->password);
+        $this->control->connect($this->password);
 
         $this->ingest->flushc($this->collection);
 

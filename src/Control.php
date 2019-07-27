@@ -28,7 +28,7 @@ class Control extends Channel
     {
         parent::connect();
 
-        $response = $this->send(new StartControlChannelCommand($password = 'SecretPassword'));
+        $response = $this->send(new StartControlChannelCommand($password));
 
         if ($bufferSize = $response->get('bufferSize')) {
             $this->bufferSize = (int)$bufferSize;

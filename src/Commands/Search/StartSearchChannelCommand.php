@@ -13,7 +13,7 @@ final class StartSearchChannelCommand extends Command
      * StartSearchChannelCommand constructor.
      * @param string $password
      */
-    public function __construct($password = 'SecretPassword')
+    public function __construct($password)
     {
         $this->parameters = [
             'mode' => 'search',

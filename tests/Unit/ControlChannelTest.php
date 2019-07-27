@@ -23,7 +23,7 @@ class ControlChannelTest extends TestCase
      */
     public function it_can_trigger_consolidation()
     {
-        $this->control->connect();
+        $this->control->connect($this->password);
 
         $this->assertEquals("OK", $this->control->consolidate());
 
@@ -35,7 +35,7 @@ class ControlChannelTest extends TestCase
      **/
     public function it_can_fetch_information_about_the_server()
     {
-        $this->control->connect();
+        $this->control->connect($this->password);
 
         $this->assertEquals(0, $this->control->info()->getCount());
     }

@@ -13,7 +13,7 @@ final class StartControlChannelCommand extends Command
      * StartControlChannelCommand constructor.
      * @param string $password
      */
-    public function __construct($password = 'SecretPassword')
+    public function __construct($password)
     {
         $this->parameters = [
             'mode' => 'control',
