@@ -71,9 +71,9 @@ class ChannelTest extends TestCase
 
     private function connect_all_channels()
     {
-        $this->search->connect('SecretPassword1');
-        $this->ingest->connect('SecretPassword1');
-        $this->control->connect('SecretPassword1');
+        $this->search->connect($this->password);
+        $this->ingest->connect($this->password);
+        $this->control->connect($this->password);
     }
 
 }
