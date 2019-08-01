@@ -11,6 +11,6 @@ class TestCase extends \PHPUnit\Framework\TestCase
         parent::__construct();
         $this->collection = 'basecollection';
         $this->bucket     = 'basebucket';
-        $this->password = 'SecretPassword1';
+        $this->password = '%gVZ8*5aONL6O#x7TEydEHX35Oo2@@';
     }
 }
