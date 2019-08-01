@@ -39,10 +39,9 @@ abstract class Channel implements ChannelInterface
     {
         $this->client->connect();
         $response = $this->client->read();
-        if($response->getStatus() == "CONNECTED") {
-            return;
+        if($response->getStatus() !== "CONNECTED") {
+            throw new ConnectionException;
         }
-        throw new ConnectionException;
     }
 
     /**
