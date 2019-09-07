@@ -28,10 +28,10 @@ once you have psonic in place, you have access to the `Client` and `Channel` cla
 To index few objects into the sonic use the following sample code, make sure you have a running instance of sonic on port 1491
 
 ```php
-$ingest  = new Psonic\Ingest(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
-$control = new Psonoc\Control(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
-$ingest->connect();
-$control->connect();
+$ingest  = new Psonic\Ingest(new Psonic\Client('localhost', 1491, 30));
+$control = new Psonic\Control(new Psonic\Client('localhost', 1491, 30));
+$ingest->connect('SecretPassword1');
+$control->connect('SecretPassword1');
 echo $ingest->push('messagesCollection', 'defaultBucket', "1234","hi Shobi how are you?")->getStatus(); // OK
 echo $ingest->push('messagesCollection', 'defaultBucket', "1235","hi are you fine ?")->getStatus(); //OK
 echo $ingest->push('messagesCollection', 'defaultBucket', "1236","Jomit? How are you?")->getStatus(); //OK
@@ -48,18 +48,18 @@ $control->disconnect();
 To search on the index using the following sample code
 
 ```php
-$search = new Psonoc\Search(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
-$search->connect();
-var_dump($this->search->query($this->collection, $this->bucket, "are")); // you should be getting an array of object keys which matched the term "are"
+$search = new Psonic\Search(new Psonic\Client('localhost', 1491, 30));
+$search->connect('SecretPassword1');
+var_dump($search->query('messagesCollection', 'defaultBucket', "are")); // you should be getting an array of object keys which matched the term "are"
 $search->disconnect();
 ```
 
 To get autosuggestions/autocomplete for a term from the index use the following sample code
 
 ```php
-$search = new Psonoc\Search(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
-$search->connect();
-var_dump($this->search->suggest($this->collection, $this->bucket, "sho")); // you should be getting an array of terms which matched the term "sho" consider previous example and it will output "shobi"
+$search = new Psonic\Search(new Psonic\Client('localhost', 1491, 30));
+$search->connect('SecretPassword1');
+var_dump($search->suggest('messagesCollection', 'defaultBucket', "sho")); // you should be getting an array of terms which matched the term "sho" consider previous example and it will output "shobi"
 $search->disconnect();
 ```
 
