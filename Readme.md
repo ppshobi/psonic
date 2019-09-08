@@ -50,7 +50,7 @@ To search on the index using the following sample code
 ```php
 $search = new Psonic\Search(new Psonic\Client('localhost', 1491, 30));
 $search->connect('SecretPassword1');
-var_dump($search->query('messagesCollection', 'defaultBucket', "are")); // you should be getting an array of object keys which matched the term "are"
+var_dump($search->query('messagesCollection', 'defaultBucket', "are")); // you should be getting an array of object keys which matched with the term "are"
 $search->disconnect();
 ```
 
@@ -59,20 +59,20 @@ To get autosuggestions/autocomplete for a term from the index use the following 
 ```php
 $search = new Psonic\Search(new Psonic\Client('localhost', 1491, 30));
 $search->connect('SecretPassword1');
-var_dump($search->suggest('messagesCollection', 'defaultBucket', "sho")); // you should be getting an array of terms which matched the term "sho" consider previous example and it will output "shobi"
+var_dump($search->suggest('messagesCollection', 'defaultBucket', "sho")); // you should be getting an array of terms which matched the term "sho". Considering previous example and it should output "shobi"
 $search->disconnect();
 ```
 
 ## Basic sonic Concepts
 
-Sonic is an `identifier index` than a `document index`, meaning if the query matches some records it will be giving you the identifier of the matched object, then the object itself. Check Basic Terminology used in sonic below as well. [Read more on sonic repository](https://github.com/valeriansaliou/sonic/blob/master/README.md)
+Sonic is more of an `identifier index` than a `document index`. Meaning, if the query matches some records it will be giving you the identifier of the matched object, than the object itself. Probably you will have to query the actual data store again with those keys. Check Basic Terminology used in sonic below as well. [Read more on sonic repository](https://github.com/valeriansaliou/sonic/blob/master/README.md)
 
 ### Channels
 
 Sonic doesn't offer an HTTP endpoint as of now, rather it offers a TCP endpoint like Redis (They call it RESP protocol), and we call it channel.
-There is 3 kind of channels
+There are 3 kind of channels
 
-- **Ingest** (Typically offers data indexing (index), deindexing (pop), flushing operations)
+- **Ingest** (Typically offers data indexing (index), deindexing (pop) and flushing operations)
 - **Search** (Offers Query and Suggest operations)
 - **Control** (Offers the collection control operations such as data consolidation)
 
