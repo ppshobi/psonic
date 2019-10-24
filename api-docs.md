@@ -13,12 +13,12 @@ echo $search->connect($password);
 
 after connecting to Search channel you can call the following methods on it
 
-| Methods                                                               |                  Description                   |
-| --------------------------------------------------------------------- | :--------------------------------------------: |
-| `->query(string $collection, string $bucket, string $terms, [string <locale>]): array`   | Returns an array of matched object identifiers, locale is optional, which should be a valid [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) locale (eng = English), if set to `none` lexing will be disabled  |
-| `->suggest(string $collection, string $bucket, string $terms, [string <locale>]): array` | Returns an array of strings of autosuggestions, locale is optional, which should be a valid [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) locale (eng = English), if set to `none` lexing will be disabled  |
-| `->ping(): string`                                                    |     Pings the server, should return _PONG_     |
-| `->disconnect()`                                                      |            Disconnects the channel             |
+| Methods                                                                                                               |                  Description                   |
+| --------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------: |
+| `->query(string $collection, string $bucket, string $terms, [int $limit], [int $offset], [string <locale>]): array`   | Returns an array of matched object identifiers, locale is optional, which should be a valid [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) locale (eng = English), if set to `none` lexing will be disabled  |
+| `->suggest(string $collection, string $bucket, string $terms, [int $limit]): array`                                   | Returns an array of strings of autosuggestions, locale is optional, which should be a valid [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) locale (eng = English), if set to `none` lexing will be disabled  |
+| `->ping(): string`                                                                                                    |     Pings the server, should return _PONG_     |
+| `->disconnect()`                                                                                                      |            Disconnects the channel             |
 
 ## Ingest
 
