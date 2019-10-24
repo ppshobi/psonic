@@ -67,6 +67,34 @@ class SearchChannelTest extends TestCase
      * @test
      * @group connected
      */
+    public function it_can_apply_limit_and_offset_on_returned_records_for_a_query()
+    {
+        $this->ingest->connect($this->password);
+        $this->search->connect($this->password);
+        $this->control->connect($this->password);
+
+        $this->ingest->flushc($this->collection);
+
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1234", "hi how are you")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1235", "hi are you fine ?")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "3456", "Jomit? How are you?")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "4567", "Annie, are you ok?")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "5678", "So Annie are you ok")->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "6789", "are you ok, Annie")->getStatus());
+
+        $this->control->consolidate();
+
+        $responses = $this->search->query($this->collection, $this->bucket, "are you", 10);
+        $this->assertCount(6, $responses);
+
+        $responses = $this->search->query($this->collection, $this->bucket, "are", 2, 3);
+        $this->assertCount(2, $responses);
+    }
+
+    /**
+     * @test
+     * @group connected
+     */
     public function it_can_apply_limit_on_returned_records_for_a_suggest_command()
     {
         $this->ingest->connect($this->password);

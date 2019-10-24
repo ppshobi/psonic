@@ -15,16 +15,18 @@ final class QueryCommand extends Command
      * @param string $bucket
      * @param string $terms
      * @param null $limit
+     * @param null $offset
      * @param null $locale
      */
-    public function __construct(string $collection, string $bucket, string $terms, $limit = null, $locale = null)
+    public function __construct(string $collection, string $bucket, string $terms, $limit = null, $offset = null, $locale = null)
     {
         $this->parameters = [
             'collection' => $collection,
             'bucket'     => $bucket,
             'terms'      => quote($terms),
             'limit'      => $limit ? "LIMIT($limit)": null,
-            'locale'      => $locale ? "LANG($locale)": null,
+            'offset'     => $offset ? "OFFSET($offset)": null,
+            'locale'     => $locale ? "LANG($locale)": null,
         ];
 
         parent::__construct($this->command, $this->parameters);
