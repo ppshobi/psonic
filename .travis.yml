@@ -16,6 +16,6 @@ script:
   - "docker pull valeriansaliou/sonic:v1.2.2"
   - "docker run -d -p 1491:1491 -v $PWD/sonic.cfg:/etc/sonic.cfg -v /tmp/sonic:/var/lib/sonic/store/ valeriansaliou/sonic:v1.2.0"
   - "sudo $PWD/.travis/wait-for-it.sh 127.0.0.1:1491"
-  - "phpunit --coverage-clover=coverage.xml"
+  - "vendor/bin/phpunit --coverage-clover=coverage.xml"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
