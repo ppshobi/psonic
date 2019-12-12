@@ -7,14 +7,17 @@ php:
   - "7.1"
   - "7.2"
   - "7.3"
+  - "7.4"
 matrix:
   fast_finish: true
+  allow_failures:
+    - php: "nightly"
 before_script:
   - "composer install"
 script:
   - "mkdir /tmp/sonic"
   - "docker pull valeriansaliou/sonic:v1.2.2"
-  - "docker run -d -p 1491:1491 -v $PWD/sonic.cfg:/etc/sonic.cfg -v /tmp/sonic:/var/lib/sonic/store/ valeriansaliou/sonic:v1.2.0"
+  - "docker run -d -p 1491:1491 -v $PWD/sonic.cfg:/etc/sonic.cfg -v /tmp/sonic:/var/lib/sonic/store/ valeriansaliou/sonic:v1.2.2"
   - "sudo $PWD/.travis/wait-for-it.sh 127.0.0.1:1491"
   - "vendor/bin/phpunit --coverage-clover=coverage.xml"
 after_success:
