@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/ppshobi/psonic/branch/master/graph/badge.svg)](https://codecov.io/gh/ppshobi/psonic)
 ## Summary
 
-Sonic is a super fast auto-suggestion engine built by the team at [crisp.chat](crisp.chat), a customer engagement platform. it is built in Rust and they officially support a javascript client, but if you want to use sonic via PHP, this is the library that you can look for.
+[Sonic](https://github.com/valeriansaliou/sonic) is a super fast auto-suggestion engine built by the team at [crisp.chat](crisp.chat), a customer engagement platform. it is built in Rust and they officially support a javascript client, but if you want to use sonic via PHP, this is the library that you can look for.
 Completely unit tested, and adheres to modern coding standards, and offers a clean API to interact with sonic.
 
 ## Installation & Usage
@@ -28,10 +28,10 @@ once you have psonic in place, you have access to the `Client` and `Channel` cla
 To index few objects into the sonic use the following sample code, make sure you have a running instance of sonic on port 1491
 
 ```php
-$ingest  = new Psonic\Ingest(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
-$control = new Psonoc\Control(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
-$ingest->connect();
-$control->connect();
+$ingest  = new Psonic\Ingest(new Psonic\Client('localhost', 1491, 30));
+$control = new Psonic\Control(new Psonic\Client('localhost', 1491, 30));
+$ingest->connect('SecretPassword1');
+$control->connect('SecretPassword1');
 echo $ingest->push('messagesCollection', 'defaultBucket', "1234","hi Shobi how are you?")->getStatus(); // OK
 echo $ingest->push('messagesCollection', 'defaultBucket', "1235","hi are you fine ?")->getStatus(); //OK
 echo $ingest->push('messagesCollection', 'defaultBucket', "1236","Jomit? How are you?")->getStatus(); //OK
@@ -48,31 +48,31 @@ $control->disconnect();
 To search on the index using the following sample code
 
 ```php
-$search = new Psonoc\Search(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
-$search->connect();
-var_dump($this->search->query($this->collection, $this->bucket, "are")); // you should be getting an array of object keys which matched the term "are"
+$search = new Psonic\Search(new Psonic\Client('localhost', 1491, 30));
+$search->connect('SecretPassword1');
+var_dump($search->query('messagesCollection', 'defaultBucket', "are")); // you should be getting an array of object keys which matched with the term "are"
 $search->disconnect();
 ```
 
 To get autosuggestions/autocomplete for a term from the index use the following sample code
 
 ```php
-$search = new Psonoc\Search(new Psonic\Client('localhost', 1491, 'SecretPassword', 30));
-$search->connect();
-var_dump($this->search->suggest($this->collection, $this->bucket, "sho")); // you should be getting an array of terms which matched the term "sho" consider previous example and it will output "shobi"
+$search = new Psonic\Search(new Psonic\Client('localhost', 1491, 30));
+$search->connect('SecretPassword1');
+var_dump($search->suggest('messagesCollection', 'defaultBucket', "sho")); // you should be getting an array of terms which matched the term "sho". Considering previous example and it should output "shobi"
 $search->disconnect();
 ```
 
 ## Basic sonic Concepts
 
-Sonic is an `identifier index` than a `document index`, meaning if the query matches some records it will be giving you the identifier of the matched object, then the object itself. Check Basic Terminology used in sonic below as well. [Read more on sonic repository](https://github.com/valeriansaliou/sonic/blob/master/README.md)
+Sonic is more of an `identifier index` than a `document index`. Meaning, if the query matches some records it will be giving you the identifier of the matched object, than the object itself. Probably you will have to query the actual data store again with those keys. Check Basic Terminology used in sonic below as well. [Read more on sonic repository](https://github.com/valeriansaliou/sonic/blob/master/README.md)
 
 ### Channels
 
 Sonic doesn't offer an HTTP endpoint as of now, rather it offers a TCP endpoint like Redis (They call it RESP protocol), and we call it channel.
-There is 3 kind of channels
+There are 3 kind of channels
 
-- **Ingest** (Typically offers data indexing (index), deindexing (pop), flushing operations)
+- **Ingest** (Typically offers data indexing (index), deindexing (pop) and flushing operations)
 - **Search** (Offers Query and Suggest operations)
 - **Control** (Offers the collection control operations such as data consolidation)
 
