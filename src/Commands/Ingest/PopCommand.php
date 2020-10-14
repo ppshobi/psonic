@@ -23,7 +23,7 @@ final class PopCommand extends Command
             'collection' => $collection,
             'bucket'     => $bucket,
             'object'     => $object,
-            'text'       => quote($text),
+            'text'       => self::wrapInQuotes($text),
         ];
 
         parent::__construct($this->command, $this->parameters);

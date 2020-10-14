@@ -15,6 +15,14 @@ abstract class Command implements CommandInterface
         $this->parameters = $parameters;
     }
 
+    /**
+     * Wrap the string in quotes, and escape any double quotes that are already in the string
+     */
+    protected function wrapInQuotes($string)
+    {
+        return '"' . str_replace('"', '\"', $string) . '"';
+    }
+
     public function __toString(): string
     {
         return $this->command . " " . implode(" ", $this->parameters) . "\n";
