@@ -21,7 +21,7 @@ final class SuggestCommand extends Command
         $this->parameters = [
             'collection' => $collection,
             'bucket'     => $bucket,
-            'terms'      => quote($terms),
+            'terms'      => self::wrapInQuotes($terms),
             'limit'      => $limit ? "LIMIT($limit)" : null,
             'locale'      => $locale ? "LIMIT($locale)" : null,
         ];

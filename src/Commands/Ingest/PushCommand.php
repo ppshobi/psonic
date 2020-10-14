@@ -24,7 +24,7 @@ final class PushCommand extends Command
             'collection' => $collection,
             'bucket'     => $bucket,
             'object'     => $object,
-            'text'       => quote($text),
+            'text'       => self::wrapInQuotes($text),
             'locale'     => $locale ? "LANG($locale)": null,
         ];
 

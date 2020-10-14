@@ -23,7 +23,7 @@ final class QueryCommand extends Command
         $this->parameters = [
             'collection' => $collection,
             'bucket'     => $bucket,
-            'terms'      => quote($terms),
+            'terms'      => self::wrapInQuotes($terms),
             'limit'      => $limit ? "LIMIT($limit)": null,
             'offset'     => $offset ? "OFFSET($offset)": null,
             'locale'     => $locale ? "LANG($locale)": null,
