@@ -17,10 +17,7 @@
   "autoload": {
     "psr-4": {
       "Psonic\\": "src/"
-    },
-    "files": [
-      "utils/functions.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
