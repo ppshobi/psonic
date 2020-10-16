@@ -1,9 +1,7 @@
 build:
-    nodes:
-        psonic:
-            tests:
-                override:
-                    - command: phpunit --filter "no tests in scrutinizer"
+    tests:
+        override:
+            command: phpunit --filter "no tests in scrutinizer"
 
 filter:
     excluded_paths: [tests/*]
