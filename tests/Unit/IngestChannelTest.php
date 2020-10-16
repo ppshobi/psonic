@@ -29,6 +29,7 @@ class IngestChannelTest extends TestCase
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "4567", "hi Naveen")->getStatus());
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "7890", "hi Jomit")->getStatus());
         $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1122", 'hi "quoted" text')->getStatus());
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $this->bucket, "1133", "Newlines\nshould\nbe\nnormalized\nto\nspaces")->getStatus());
     }
 
     /**

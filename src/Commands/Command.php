@@ -16,11 +16,13 @@ abstract class Command implements CommandInterface
     }
 
     /**
-     * Wrap the string in quotes, and escape any double quotes that are already in the string
+     * Wrap the string in quotes, and normalize whitespace. Also remove double quotes.
      */
     protected function wrapInQuotes($string)
     {
-        return '"' . str_replace('"', '\"', $string) . '"';
+        $string = preg_replace('/[\r\n\t"]/', ' ', $string);
+        $string = '"' . str_replace('"', '\"', $string) . '"';
+        return $string;
     }
 
     public function __toString(): string
