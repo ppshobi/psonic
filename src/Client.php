@@ -53,7 +53,7 @@ class Client implements ClientInterface
      */
     public function read(): ResponseInterface
     {
-        $message = stream_get_line($this->resource, 2048, "\r\n");
+        $message = explode("\r\n", fgets($this->resource))[0];
         return new SonicResponse($message);
     }
 
