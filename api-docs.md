@@ -38,7 +38,7 @@ after connecting to Ingest channel you can call the following methods on it
 | `->push(string $collection,string $bucket, string $object_id, string "data", [string <locale>])` |                       Add an item to index and Returns a Sonic Response, locale is optional, which should be a valid [ISO 639-3](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) locale (eng = English), if set to `none` lexing will be disabled                       |
 | `->pop(string $collection,string $bucket, string $object_id, string "data"`  |                     pops an item out of index and returns a Sonic Response                     |
 | `->count(string $collection,[string $bucket, [string $object_id]]): int`     |                   counts the number of items in collection, bucket or object                   |
-| `->flushc(string $collection):int`                                           |  Flushes the buckets from a collection, returns a integer saying the number of items flushed   |
+| `->flushc(string $collection):int`                                           |  Flushes the objects from a collection, returns a integer saying the number of items flushed   |
 | `->flushb(string $collection, string $bucket):int`                           |    Flushes the objects from a bucket, returns a integer saying the number of items flushed     |
 | `->flusho(string $collection, string $bucket, string $object_id):int`        | Flushes the indexed text from an objects, returns a integer saying the number of items flushed |
 | `->ping(): string`                                                           |                             Pings the server, should return _PONG_                             |
