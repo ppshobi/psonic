@@ -3,13 +3,6 @@ on: [push, pull_request]
 jobs:
   run:    
     runs-on: ${{ matrix.operating-system }}
-    services:
-      sonic:
-        image: valeriansaliou/sonic:v1.1.9
-        ports:
-          - 1491:1491
-        volumes:
-          - sonic.cfg:/etc/sonic.cfg
     strategy:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macOS-latest]
@@ -24,6 +17,8 @@ jobs:
         php-version: ${{ matrix.php-versions }}
     - name: Check PHP Version
       run: php -v
+    - name: Run Sonic container
+      run: docker run -d -v ${{ github.workspace }}/sonic.cfg:/etc/sonic.cfg valeriansaliou/sonic:v1.1.9
     - name: Composer install
       run: composer install
     - name: Run phpunit
