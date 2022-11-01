@@ -1,0 +1,27 @@
+on: [push, pull_request]
+
+jobs:
+  run:    
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.3', '7.4', '8.0']
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+    - name: Check PHP Version
+      run: php -v
+    - name: Run Sonic container
+      run: docker run -d -p 1491:1491 -v ${{ github.workspace }}/sonic.cfg:/etc/sonic.cfg valeriansaliou/sonic:v1.4.0
+    - name: See running containers
+      run: docker ps
+    - name: Composer install
+      run: composer install
+    - name: Run phpunit
+      run: ./vendor/bin/phpunit
