@@ -1,3 +1,5 @@
+on: [push, pull_request]
+
 jobs:
   run:    
     runs-on: ${{ matrix.operating-system }}
