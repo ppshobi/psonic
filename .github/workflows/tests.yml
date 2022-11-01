@@ -18,7 +18,9 @@ jobs:
     - name: Check PHP Version
       run: php -v
     - name: Run Sonic container
-      run: docker run -d -v ${{ github.workspace }}/sonic.cfg:/etc/sonic.cfg valeriansaliou/sonic:v1.1.9
+      run: docker run -d -p 1491:1491 -v ${{ github.workspace }}/sonic.cfg:/etc/sonic.cfg valeriansaliou/sonic:v1.1.9
+    - name: See running containers
+      run: docker ps
     - name: Composer install
       run: composer install
     - name: Run phpunit
