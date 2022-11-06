@@ -1,5 +1,5 @@
 # Psonic - PHP client for sonic auto suggestion engine 
-[![codecov](https://codecov.io/gh/ppshobi/psonic/branch/master/graph/badge.svg)](https://codecov.io/gh/ppshobi/psonic)
+[![codecov](https://codecov.io/github/ppshobi/psonic/branch/master/graph/badge.svg?token=y6y9PVxDcg)](https://codecov.io/github/ppshobi/psonic)
 
 [![.github/workflows/tests.yml](https://github.com/ppshobi/psonic/actions/workflows/tests.yml/badge.svg)](https://github.com/ppshobi/psonic/actions/workflows/tests.yml)
 
