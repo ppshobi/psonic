@@ -5,7 +5,7 @@ namespace Psonic;
 use Psonic\Contracts\Response as ResponseInterface;
 use Psonic\Exceptions\CommandFailedException;
 
-class SonicResponse implements ResponseInterface 
+class SonicResponse implements ResponseInterface
 {
     private $message;
     private $pieces;
@@ -68,10 +68,9 @@ class SonicResponse implements ResponseInterface
     }
 
     /**
-     * @param $key
      * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         if(isset($this->pieces[$key])){
             return $this->pieces[$key];
@@ -94,4 +93,3 @@ class SonicResponse implements ResponseInterface
         return $this->get('count') ?? 0;
     }
 }
- 
