@@ -40,7 +40,7 @@ class ClientTest extends TestCase
         $this->client->connect();
         $this->client->disconnect();
         $this->expectException(ConnectionException::class);
-        $this->expectExceptionMessage("Not connected to sonic. fwrite(): supplied resource is not a valid stream resource");
+        $this->expectExceptionMessage("Not connected to sonic. Empty stream given NULL");
         $this->client->send(new PingCommand);
     }
 

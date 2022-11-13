@@ -6,7 +6,8 @@ use Psonic\Exceptions\ConnectionException;
 use Psonic\Contracts\Client as ClientInterface;
 use Psonic\Contracts\Command as CommandInterface;
 use Psonic\Contracts\Response as ResponseInterface;
-use TypeError;
+use RuntimeException;
+
 
 class Client implements ClientInterface
 {
@@ -46,10 +47,15 @@ class Client implements ClientInterface
      */
     public function send(CommandInterface $command): ResponseInterface
     {
-        try {
-            fwrite($this->resource, $command);
-        }catch (TypeError $e) {
-            throw new ConnectionException("Not connected to sonic. " . $e->getMessage());
+        if(!is_resource($this->resource)) {
+            //Fixme: In php8+ a try catch on fwrite throws a TypeError and catches the case of an empty $this->>resource variable
+            throw new ConnectionException("Not connected to sonic. Empty stream given ". var_export($this->resource, true));
+        }
+
+        $result = fwrite($this->resource, $command);
+
+        if($result === false) {
+            throw new RuntimeException("Unable to write to stream");
         }
 
         return $this->read();
