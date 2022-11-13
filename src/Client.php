@@ -6,15 +6,22 @@ use Psonic\Exceptions\ConnectionException;
 use Psonic\Contracts\Client as ClientInterface;
 use Psonic\Contracts\Command as CommandInterface;
 use Psonic\Contracts\Response as ResponseInterface;
+use TypeError;
 
 class Client implements ClientInterface
 {
+    /** @var resource $resource */
     private $resource;
 
+    /** @var string  */
     private $host;
+    /** @var int */
     private $port;
+    /** @var int|null  */
     private $errorNo;
+    /** @var string  */
     private $errorMessage;
+    /** @var int  */
     private $maxTimeout;
 
     /**
@@ -39,11 +46,12 @@ class Client implements ClientInterface
      */
     public function send(CommandInterface $command): ResponseInterface
     {
-        if (!$this->resource) {
-            throw new ConnectionException();
+        try {
+            fwrite($this->resource, $command);
+        }catch (TypeError $e) {
+            throw new ConnectionException("Not connected to sonic. " . $e->getMessage());
         }
 
-        fwrite($this->resource, $command);
         return $this->read();
     }
 
@@ -53,10 +61,6 @@ class Client implements ClientInterface
      */
     public function read(): ResponseInterface
     {
-        if (!$this->resource) {
-            throw new ConnectionException();
-        }
-
         $string = fgets($this->resource);
 
         if($string === false) {
@@ -76,20 +80,27 @@ class Client implements ClientInterface
      * @throws ConnectionException
      * connects to the socket
      */
-    public function connect():void
+    public function connect(): void
     {
-        if (!$this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errorNo, $this->errorMessage, $this->maxTimeout)) {
-            throw new ConnectionException();
+        $resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errorNo, $this->errorMessage, $this->maxTimeout);
+        if (!$resource) {
+            throw new ConnectionException("Unable to connect to sonic search engine with given host: $this->host and port: $this->port}. Error code $this->errorNo with $this->errorMessage was produced");
         }
+        $this->resource = $resource;
     }
 
     /**
      * Disconnects from a socket
      */
-    public function disconnect()
+    public function disconnect(): void
     {
-        stream_socket_shutdown($this->resource, STREAM_SHUT_WR);
-        $this->resource = null;
+        $result = stream_socket_shutdown($this->resource, STREAM_SHUT_WR);
+
+        if(!$result) {
+            throw new \RuntimeException("Unable to shut down stream socket connection");
+        }
+
+        fclose($this->resource);
     }
 
     /**

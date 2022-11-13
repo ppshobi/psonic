@@ -7,9 +7,11 @@ namespace Tests\Unit;
 
 use Psonic\Client;
 use Psonic\Commands\Misc\PingCommand;
+use Psonic\Commands\Search\QueryCommand;
 use Psonic\Contracts\Command;
 use Psonic\Contracts\Response;
 use Psonic\Exceptions\ConnectionException;
+use Psonic\Search;
 use Tests\TestCase;
 
 class ClientTest extends TestCase
@@ -38,6 +40,7 @@ class ClientTest extends TestCase
         $this->client->connect();
         $this->client->disconnect();
         $this->expectException(ConnectionException::class);
+        $this->expectExceptionMessage("Not connected to sonic. fwrite(): supplied resource is not a valid stream resource");
         $this->client->send(new PingCommand);
     }
 
