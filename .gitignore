@@ -4,3 +4,4 @@ vendor/*
 coverage.xml
 .DS_Store
 .vscode/*
+var/*
