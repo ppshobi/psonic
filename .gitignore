@@ -3,3 +3,4 @@ vendor/*
 .phpunit.result.cache
 coverage.xml
 .DS_Store
+.vscode/*
