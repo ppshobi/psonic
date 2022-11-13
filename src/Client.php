@@ -53,7 +53,22 @@ class Client implements ClientInterface
      */
     public function read(): ResponseInterface
     {
-        $message = explode("\r\n", fgets($this->resource))[0];
+        if (!$this->resource) {
+            throw new ConnectionException();
+        }
+
+        $string = fgets($this->resource);
+
+        if($string === false) {
+            throw new \RuntimeException("Unable to read from stream");
+        }
+
+        if(empty($string)) {
+            throw new \RuntimeException("Read empty string from stream");
+        }
+
+        $message = explode("\r\n", $string)[0];
+
         return new SonicResponse($message);
     }
 
@@ -61,7 +76,7 @@ class Client implements ClientInterface
      * @throws ConnectionException
      * connects to the socket
      */
-    public function connect()
+    public function connect():void
     {
         if (!$this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errorNo, $this->errorMessage, $this->maxTimeout)) {
             throw new ConnectionException();
