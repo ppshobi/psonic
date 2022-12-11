@@ -12,7 +12,6 @@ final class TriggerCommand extends Command
 
     /**
      * TriggerCommand constructor.
-     * @param string $action
      */
     public function __construct(string $action)
     {

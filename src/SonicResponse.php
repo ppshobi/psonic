@@ -7,17 +7,15 @@ use Psonic\Exceptions\CommandFailedException;
 
 class SonicResponse implements ResponseInterface
 {
-    private $message;
-    private $pieces;
-    private $results;
+    private string $message;
+    /** @var array<mixed> */
+    private array $pieces;
+    /** @var array<mixed> */
+    private array $results;
 
-    /**
-     * SonicResponse constructor.
-     * @param $message
-     */
-    public function __construct($message)
+    public function __construct(string $message)
     {
-        $this->message = (string) $message;
+        $this->message = $message;
         $this->parse();
     }
 
@@ -25,7 +23,7 @@ class SonicResponse implements ResponseInterface
      * parses the read buffer into a readable object
      * @throws CommandFailedException
      */
-    private function parse()
+    private function parse(): void
     {
         $this->pieces = explode(" ", $this->message);
 
@@ -52,17 +50,14 @@ class SonicResponse implements ResponseInterface
     }
 
     /**
-     * @return mixed
+     * @return array<mixed>
      */
-    public function getResults()
+    public function getResults(): array
     {
         return $this->results;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString():string
     {
         return implode(" ", $this->pieces);
     }
@@ -77,19 +72,18 @@ class SonicResponse implements ResponseInterface
         }
     }
 
-    /**
-     * @return mixed
-     */
     public function getStatus(): string
     {
-        return $this->get('status');
+        /** @var string $status */
+        $status = $this->get('status');
+
+        return $status;
     }
 
-    /**
-     * @return int
-     */
     public function getCount():int
     {
-        return $this->get('count') ?? 0;
+        /** @var string $count */
+        $count = $this->get('count');
+        return $count ? (int)$count : 0;
     }
 }

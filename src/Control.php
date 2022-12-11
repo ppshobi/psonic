@@ -8,6 +8,7 @@ use Psonic\Contracts\Client;
 use Psonic\Commands\Control\InfoCommand;
 use Psonic\Commands\Control\TriggerCommand;
 use Psonic\Commands\Control\StartControlChannelCommand;
+use Psonic\Contracts\Response;
 
 class Control extends Channel
 {
@@ -20,41 +21,32 @@ class Control extends Channel
         parent::__construct($client);
     }
 
-    /**
-     * @return mixed|Contracts\Response|void
-     * @throws Exceptions\ConnectionException
-     */
-    public function connect($password = 'SecretPassword')
+    public function connect(string $password = 'SecretPassword'): Response
     {
         parent::connect();
 
         $response = $this->send(new StartControlChannelCommand($password));
 
-        if ($bufferSize = $response->get('bufferSize')) {
+        /** @var string $bufferSize */
+        $bufferSize = $response->get('bufferSize');
+        if ($bufferSize) {
             $this->bufferSize = (int)$bufferSize;
         }
 
         return $response;
     }
 
-    /**
-     * @param $action
-     * @return Contracts\Response
-     */
-    public function trigger($action)
+    public function trigger(string $action): Response
     {
         return $this->send(new TriggerCommand($action));
     }
 
-    /**
-     * @return Contracts\Response
-     */
-    public function consolidate()
+    public function consolidate(): Response
     {
         return $this->trigger('consolidate');
     }
 
-    public function info()
+    public function info(): Response
     {
         return $this->send(new InfoCommand);
     }

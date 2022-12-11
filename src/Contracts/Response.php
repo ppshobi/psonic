@@ -14,4 +14,5 @@ interface Response
      * @return string
      */
     public function getStatus(): string;
+
 }

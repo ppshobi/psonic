@@ -12,6 +12,7 @@ use Psonic\Commands\Ingest\FlushObjectCommand;
 use Psonic\Commands\Ingest\FlushBucketCommand;
 use Psonic\Commands\Ingest\FlushCollectionCommand;
 use Psonic\Commands\Ingest\StartIngestChannelCommand;
+use Psonic\Contracts\Response;
 
 class Ingest extends Channel
 {
@@ -24,17 +25,15 @@ class Ingest extends Channel
         parent::__construct($client);
     }
 
-    /**
-     * @return mixed|Contracts\Response|void
-     * @throws Exceptions\ConnectionException
-     */
-    public function connect($password = 'SecretPassword')
+    public function connect(string $password = 'SecretPassword'): Response
     {
         parent::connect();
 
         $response = $this->send(new StartIngestChannelCommand($password));
 
-        if ($bufferSize = $response->get('bufferSize')) {
+        /** @var string $bufferSize */
+        $bufferSize = $response->get('bufferSize');
+        if ($bufferSize) {
             $this->bufferSize = (int)$bufferSize;
         }
 
@@ -88,61 +87,53 @@ class Ingest extends Channel
         return $count;
     }
 
-    /**
-     * @param $collection
-     * @param null $bucket
-     * @param null $object
-     * @return mixed
-     */
-    public function count($collection, $bucket = null, $object = null)
+    public function count(string $collection,string $bucket = null, string $object = null): int
     {
+        /** @var SonicResponse $message */
         $message = $this->send(new CountCommand($collection, $bucket, $object));
 
-        return $message->get('count');
+        /** @var string $count */
+        $count = $message->get('count');
+        return (int)$count;
     }
 
-    /**
-     * @param $collection
-     * @return mixed
-     */
-    public function flushc($collection)
+
+    public function flushc(string $collection): int
     {
-        $message = $this->send(new FlushCollectionCommand($collection));
+        /** @var SonicResponse $message */
+        $message = $this->send(new FlushCollectionCommand( $collection));
+
         return $message->getCount();
     }
 
-    /**
-     * @param $collection
-     * @param $bucket
-     * @return integer
-     */
-    public function flushb($collection, $bucket)
+
+    public function flushb(string $collection, string $bucket): int
     {
+        /** @var SonicResponse $message */
         $message = $this->send(new FlushBucketCommand($collection, $bucket));
         return $message->getCount();
     }
 
-    /**
-     * @param $collection
-     * @param $bucket
-     * @param $object
-     * @return mixed
-     */
-    public function flusho($collection, $bucket, $object)
+    public function flusho(string $collection,string $bucket,string $object): int
     {
+        /** @var SonicResponse $message */
         $message = $this->send(new FlushObjectCommand($collection, $bucket, $object));
         return $message->getCount();
     }
 
     /**
-     * @param string $collection
-     * @param string $bucket
-     * @param string $key
-     * @param string $text
-     * @return array
+     * @return array<string>
      */
     private function splitString(string $collection, string $bucket, string $key, string  $text): array
     {
-        return str_split($text, ($this->bufferSize - (strlen($key . $collection . $bucket) + 20)));
+        $extraBytesRequired = strlen($key . $collection . $bucket) + 20;
+        $splitLength = $this->bufferSize - $extraBytesRequired;
+        if($splitLength<=0) {
+            //@TODO: test this exception
+            throw new \RuntimeException("Insufficient buffer size for splitting the message string Given "
+                . $splitLength
+                . "Buffersize should be more than {$extraBytesRequired} to accomodate the collection, bucket and key name(s) length in the message");
+        }
+        return str_split($text, $splitLength);
     }
 }
