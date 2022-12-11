@@ -32,4 +32,4 @@ jobs:
          files: ./coverage.xml
          verbose: true
     - name: Run phpstan
-      run: ./vendor/bin/phpstan --level=max analyse src
+      run: ./vendor/bin/phpstan --level=max --xdebug analyse src
