@@ -1,7 +1,7 @@
 on: [push, pull_request]
 
 jobs:
-  run:    
+  run:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
@@ -31,3 +31,5 @@ jobs:
       with:
          files: ./coverage.xml
          verbose: true
+    - name: Run phpstan
+      run: ./vendor/bin/phpstan --level=max analyse src
