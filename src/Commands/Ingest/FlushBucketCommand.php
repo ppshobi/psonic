@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class FlushBucketCommand extends Command
 {
-    private $command    = 'FLUSHB';
-    private $parameters = [];
+    private string $command    = 'FLUSHB';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * Flushes a given bucket in a collection

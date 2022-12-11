@@ -8,8 +8,9 @@ use Psonic\Commands\Command;
 
 final class QuitChannelCommand extends Command
 {
-    private $command = 'QUIT';
-    private $parameters = [];
+    private string $command    = 'QUIT';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * QuitChannelCommand constructor.

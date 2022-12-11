@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class FlushObjectCommand extends Command
 {
-    private $command    = 'FLUSHO';
-    private $parameters = [];
+    private string $command    = 'FLUSHO';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * Flushes the text from an object

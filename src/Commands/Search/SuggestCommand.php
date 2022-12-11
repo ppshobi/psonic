@@ -6,17 +6,14 @@ use Psonic\Commands\Command;
 
 final class SuggestCommand extends Command
 {
-    private $command    = 'SUGGEST';
-    private $parameters = [];
+    private string $command    = 'SUGGEST';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * SuggestCommand constructor.
-     * @param string $collection
-     * @param string $bucket
-     * @param string $terms
-     * @param null $limit
      */
-    public function __construct(string $collection, string $bucket, string $terms, $limit = null)
+    public function __construct(string $collection, string $bucket, string $terms,int $limit = null)
     {
         $this->parameters = [
             'collection' => $collection,

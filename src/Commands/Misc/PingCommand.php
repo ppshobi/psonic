@@ -8,8 +8,9 @@ use Psonic\Commands\Command;
 
 final class PingCommand extends Command
 {
-    private $command = 'PING';
-    private $parameters = [];
+    private string $command    = 'PING';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * PingCommand constructor.

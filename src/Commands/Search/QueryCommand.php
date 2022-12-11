@@ -6,19 +6,11 @@ use Psonic\Commands\Command;
 
 final class QueryCommand extends Command
 {
-    private $command    = 'QUERY';
-    private $parameters = [];
+    private string $command    = 'QUERY';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
-    /**
-     * QueryCommand constructor.
-     * @param string $collection
-     * @param string $bucket
-     * @param string $terms
-     * @param null $limit
-     * @param null $offset
-     * @param null $locale
-     */
-    public function __construct(string $collection, string $bucket, string $terms, $limit = null, $offset = null, $locale = null)
+    public function __construct(string $collection, string $bucket, string $terms, int $limit = null, int $offset = null,string $locale = null)
     {
         $this->parameters = [
             'collection' => $collection,

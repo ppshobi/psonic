@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class TriggerCommand extends Command
 {
-    private $command    = 'TRIGGER';
-    private $parameters = [];
+    private string $command    = 'TRIGGER';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * TriggerCommand constructor.

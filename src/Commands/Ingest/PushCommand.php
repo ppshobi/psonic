@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class PushCommand extends Command
 {
-    private $command    = 'PUSH';
-    private $parameters = [];
+    private string $command    = 'PUSH';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * Push a text/object into an object/bucket respectively
