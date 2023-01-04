@@ -129,10 +129,9 @@ class Ingest extends Channel
         $extraBytesRequired = strlen($key . $collection . $bucket) + 20;
         $splitLength = $this->bufferSize - $extraBytesRequired;
         if($splitLength<=0) {
-            //@TODO: test this exception
             throw new \RuntimeException("Insufficient buffer size for splitting the message string Given "
                 . $splitLength
-                . "Buffersize should be more than {$extraBytesRequired} to accomodate the collection, bucket and key name(s) length in the message");
+                . ". Buffersize should be more than {$extraBytesRequired} to accomodate the collection, bucket and key name(s) length in the message");
         }
         return str_split($text, $splitLength);
     }

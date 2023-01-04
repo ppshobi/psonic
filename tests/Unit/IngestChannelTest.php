@@ -124,6 +124,20 @@ class IngestChannelTest extends TestCase
         $this->assertEquals(1, $this->ingest->flusho($this->collection, $this->bucket, "1234"));
     }
 
+    /**
+     * @test
+     **/
+    public function it_throws_exception_when_buffer_is_not_enough()
+    {
+        $response = $this->ingest->connect($this->password);
+        $bufferSize = $response->get('bufferSize');
+
+        $longBucketName = str_repeat('i', $bufferSize);
+        $this->ingest->flushc($this->collection);
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage("Insufficient buffer size for splitting the message string Given -38. Buffersize should be more than ". $bufferSize+38 ." to accomodate the collection, bucket and key name(s) length in the message"); // 38 is the length of collectionName, bucketname and object key
+        $this->assertEquals("OK", $this->ingest->push($this->collection, $longBucketName, "1234", "hi Shobi how are you?")->getStatus());
+    }
     // @todo
     /**
      * Implement tests for locale based ingestion
