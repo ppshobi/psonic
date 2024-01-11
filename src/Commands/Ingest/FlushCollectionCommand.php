@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class FlushCollectionCommand extends Command
 {
-    private $command    = 'FLUSHC';
-    private $parameters = [];
+    private string $command    = 'FLUSHC';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * Flushes a given collection

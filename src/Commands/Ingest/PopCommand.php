@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class PopCommand extends Command
 {
-    private $command    = 'POP';
-    private $parameters = [];
+    private string $command    = 'POP';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * pops a text from a given object

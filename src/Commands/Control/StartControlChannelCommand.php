@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class StartControlChannelCommand extends Command
 {
-    private $command    = 'START';
-    private $parameters = [];
+    private string $command    = 'START';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * StartControlChannelCommand constructor.

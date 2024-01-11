@@ -1,12 +1,12 @@
 on: [push, pull_request]
 
 jobs:
-  run:    
+  run:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.3', '7.4', '8.0']
+        php-versions: ['8.0', '8.1', '8.2']
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     steps:
     - name: Checkout
@@ -31,3 +31,5 @@ jobs:
       with:
          files: ./coverage.xml
          verbose: true
+    - name: Run phpstan
+      run: ./vendor/bin/phpstan --level=max --xdebug analyse src

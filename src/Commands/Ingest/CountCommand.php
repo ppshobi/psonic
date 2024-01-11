@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class CountCommand extends Command
 {
-    private $command    = 'COUNT';
-    private $parameters = [];
+    private string $command    = 'COUNT';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * Counts the number of objects

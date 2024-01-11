@@ -6,8 +6,9 @@ use Psonic\Commands\Command;
 
 final class InfoCommand extends Command
 {
-    private $command    = 'INFO';
-    private $parameters = [];
+    private string $command    = 'INFO';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
     /**
      * Info Command constructor.

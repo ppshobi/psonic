@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Psonic\Contracts;
 
 use Psonic\Exceptions\ConnectionException;
@@ -9,12 +9,12 @@ interface Client
      * Connects to a socket
      * @throws ConnectionException
      */
-    public function connect();
+    public function connect(): void;
 
     /**
      * disconnects the socket
      */
-    public function disconnect();
+    public function disconnect(): void;
 
     /**
      * @param Command $command

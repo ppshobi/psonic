@@ -6,14 +6,11 @@ use Psonic\Commands\Command;
 
 final class StartSearchChannelCommand extends Command
 {
-    private $command    = 'START';
-    private $parameters = [];
+    private string $command    = 'START';
+    /** @var array<mixed> $parameters */
+    private array $parameters = [];
 
-    /**
-     * StartSearchChannelCommand constructor.
-     * @param string $password
-     */
-    public function __construct($password)
+    public function __construct(string $password)
     {
         $this->parameters = [
             'mode' => 'search',

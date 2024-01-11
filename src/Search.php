@@ -25,30 +25,28 @@ class Search extends Channel
      * @return mixed|Contracts\Response|void
      * @throws Exceptions\ConnectionException
      */
-    public function connect($password = 'SecretPassword')
+    public function connect(string $password = 'SecretPassword')
     {
         parent::connect();
 
         $response = $this->send(new StartSearchChannelCommand($password));
 
-        if ($bufferSize = $response->get('bufferSize')) {
+
+        /** @var string $bufferSize */
+        $bufferSize = $response->get('bufferSize');
+
+        if ($bufferSize) {
             $this->bufferSize = (int)$bufferSize;
         }
 
         return $response;
     }
 
+
     /**
-     * @param $collection
-     * @param $bucket
-     * @param $terms
-     * @param $limit
-     * @param $offset
-     * @param $locale
-     * @return array
-     * @throws CommandFailedException
+     *@return array<mixed>
      */
-    public function query($collection, $bucket, $terms, $limit = null, $offset = null, $locale = null): array
+    public function query(string $collection,string $bucket,string $terms,int $limit = null,int $offset = null,string $locale = null): array
     {
         $response = $this->send(new QueryCommand($collection, $bucket, $terms, $limit, $offset, $locale));
 
@@ -56,6 +54,7 @@ class Search extends Channel
             throw new CommandFailedException;
         }
 
+        /** @var SonicResponse $results */
         $results = $this->read();
 
         if (!$results->getStatus() == 'EVENT') {
@@ -65,15 +64,11 @@ class Search extends Channel
         return $results->getResults();
     }
 
+
     /**
-     * @param $collection
-     * @param $bucket
-     * @param $terms
-     * @param $limit
-     * @return array
-     * @throws CommandFailedException
+     *@return array<mixed>
      */
-    public function suggest($collection, $bucket, $terms, $limit = null): array
+    public function suggest(string $collection,string $bucket,string $terms, int $limit = null): array
     {
         $response = $this->send(new SuggestCommand($collection, $bucket, $terms, $limit));
 
@@ -81,6 +76,7 @@ class Search extends Channel
             throw new CommandFailedException;
         }
 
+        /** @var SonicResponse $results */
         $results = $this->read();
 
         if (!$results->getStatus() == 'EVENT') {

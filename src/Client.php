@@ -6,15 +6,23 @@ use Psonic\Exceptions\ConnectionException;
 use Psonic\Contracts\Client as ClientInterface;
 use Psonic\Contracts\Command as CommandInterface;
 use Psonic\Contracts\Response as ResponseInterface;
+use RuntimeException;
+
 
 class Client implements ClientInterface
 {
+    /** @var resource $resource */
     private $resource;
 
+    /** @var string  */
     private $host;
+    /** @var int */
     private $port;
+    /** @var int|null  */
     private $errorNo;
+    /** @var string  */
     private $errorMessage;
+    /** @var int  */
     private $maxTimeout;
 
     /**
@@ -39,11 +47,17 @@ class Client implements ClientInterface
      */
     public function send(CommandInterface $command): ResponseInterface
     {
-        if (!$this->resource) {
-            throw new ConnectionException();
+        if(!is_resource($this->resource)) {
+            //Fixme: In php8+ a try catch on fwrite throws a TypeError and catches the case of an empty $this->>resource variable
+            throw new ConnectionException("Not connected to sonic. Empty stream given ". var_export($this->resource, true));
         }
 
-        fwrite($this->resource, $command);
+        $result = fwrite($this->resource, $command);
+
+        if($result === false) {
+            throw new RuntimeException("Unable to write to stream");
+        }
+
         return $this->read();
     }
 
@@ -53,7 +67,18 @@ class Client implements ClientInterface
      */
     public function read(): ResponseInterface
     {
-        $message = explode("\r\n", fgets($this->resource))[0];
+        $string = fgets($this->resource);
+
+        if($string === false) {
+            throw new \RuntimeException("Unable to read from stream");
+        }
+
+        if(empty($string)) {
+            throw new \RuntimeException("Read empty string from stream");
+        }
+
+        $message = explode("\r\n", $string)[0];
+
         return new SonicResponse($message);
     }
 
@@ -61,20 +86,27 @@ class Client implements ClientInterface
      * @throws ConnectionException
      * connects to the socket
      */
-    public function connect()
+    public function connect(): void
     {
-        if (!$this->resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errorNo, $this->errorMessage, $this->maxTimeout)) {
-            throw new ConnectionException();
+        $resource = stream_socket_client("tcp://{$this->host}:{$this->port}", $this->errorNo, $this->errorMessage, $this->maxTimeout);
+        if (!$resource) {
+            throw new ConnectionException("Unable to connect to sonic search engine with given host: $this->host and port: $this->port}. Error code $this->errorNo with $this->errorMessage was produced");
         }
+        $this->resource = $resource;
     }
 
     /**
      * Disconnects from a socket
      */
-    public function disconnect()
+    public function disconnect(): void
     {
-        stream_socket_shutdown($this->resource, STREAM_SHUT_WR);
-        $this->resource = null;
+        $result = stream_socket_shutdown($this->resource, STREAM_SHUT_WR);
+
+        if(!$result) {
+            throw new \RuntimeException("Unable to shut down stream socket connection");
+        }
+
+        fclose($this->resource);
     }
 
     /**
